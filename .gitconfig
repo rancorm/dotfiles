@@ -1,0 +1,9 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Jonathan Cormier
+	email = jonathan@cormier.co
+
+[diff]
+    guitool = vscode
+[difftool "vscode"]
+    cmd = codium --wait --diff $LOCAL $REMOTE

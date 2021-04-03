@@ -1,0 +1,40 @@
+#
+# Jonathan Cormier Ticker YAML
+#
+show-tags: true
+show-fundamentals: true
+show-separator: true
+show-summary: true
+interval: 5
+currency: CAD
+sort: alpha 
+
+watchlist:
+  - ^GSPC
+  - BTC-USD
+  - PLTR
+  - DTEA
+  - BEP-UN.TO
+  - BEPC.TO
+  - BAM-A.TO
+  - CCO.TO
+  - MSFT
+  - MMED.NE
+  - DIR-UN
+  - D-UN
+  - TFII.TO
+  - CMPS
+  - QTRH.TO
+  - CURA.CN
+  - CG.TO
+  - NUMI.V
+  - BNS.TO
+  - WRN.TO
+
+#colors:
+#  text: "#005fff"
+#  text-light: "#0087ff"
+#  text-label: "#00d7ff"
+#  text-line: "#00ffff"
+#  text-tag: "#005fff"
+#  background-tag: "#0087ff"
