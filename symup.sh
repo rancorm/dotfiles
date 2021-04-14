@@ -1,20 +1,26 @@
 #!/bin/sh 
 #
-# symup.sh
+# symup.sh [] 
 #
 #
 # List of entries to ignore
-IGNORE=". .. .DS_Store .git"
+IGNORE=".DS_Store .git"
+
 #
 BASEDIR=$(dirname $0)
 DOTFILES="dotfiles"
 
+# Commands
+LN=$(which ln)
+MV=$(which mv)
+
 # Loop through dot entries
-for ENTRY in "$BASEDIR"/.* 
+for ENTRY in "$BASEDIR"/.[^.]*
 do
     ENTRYBASE=$(basename $ENTRY)
-    ENTRYHOME="$HOME/$ENTRYBASE"
+    ENTRYTARGET="$HOME/$ENTRYBASE"
     ENTRYIGNORE=0
+    ENTRYDOTFILE="$DOTFILES/$ENTRYBASE"
 
     # Ignore specific file or directory names
     for IENTRY in $IGNORE
@@ -30,31 +36,20 @@ do
       continue
     fi
 
-    # Check for existing symlink
-    if [[ -L "$ENTRYHOME" ]]; then
-      echo "Symlink $ENTRYBASE found...skipping"
+    if [[ -h "$ENTRYTARGET" && ($(readlink "$ENTRYTARGET") == "$ENTRYDOTFILE") ]]; then
+      echo "\x1B[90m$ENTRYTARGET is symlinked to your dotfiles.\x1B[39m"
+    elif [[ -f "$ENTRYTARGET" && $(shasum "$ENTRYTARGET" | awk '{print $2}') == $(shasum "$ENTRYDOTFILE" | awk '{print $2}') ]]; then
+      echo "\x1B[32m$ENTRYTARGET exists and was identical to your dotfile. Overriding with symlink.\x1B[39m"
 
-      continue
-    fi
+      $LN -s $ENTRYDOTFILE $ENTRYTARGET
+    elif [[ -a "$ENTRYTARGET" ]]; then
+      read -p "\x1B[33m$ENTRYTARGET exists and differs from your dotfile. Override?  [yn]\x1B[39m" -n 1
 
-    # Check home directory
-    if [[ -e "$ENTRYHOME" ]]; then
-      echo "Found entry $ENTRYBASE in home directory $HOME"
-      
-      read -p "Rename and replace with symlink to dotfiles version? " ANS
-      
-      case $ANS in
-	[yY]*) echo "Yes"
-	       mv "$ENTRYHOME" "${ENTRYHOME}.old" 
-	       ln -s "$DOTFILES/$ENTRYBASE" "$ENTRYHOME" ;;
-	*) break ;;
-      esac
+      if [[ $REPLY =~ [yY]* ]]; then
+        $LN -Fs "$ENTRYDOTFILE" "$ENTRYTARGET"
+      fi
     else
-      read -p "No entry $ENTRYBASE found, add symlink to dotfiles? " ANS
-
-      case $ANS in
-        [yY]*) ln -s "$DOTFILES/$ENTRYBASE" "$ENTRYHOME" ;;
-	*) break ;;
-      esac   
+      echo "\x1B[32m$ENTRYTARGET does not exist. Symlinking to dotfile.\x1B[39m"
+      $LN -s "$ENTRYDOTFILE" "$ENTRYTARGET"
     fi
 done

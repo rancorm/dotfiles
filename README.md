@@ -1,3 +1,3 @@
-# dotfiles
+# Dot Files
 
-My dotfiles (.zshrc, .bash_profile, etc.)
+Dot files (.zshrc, .bash_profile, etc.)
