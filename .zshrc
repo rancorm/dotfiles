@@ -42,7 +42,7 @@ export SSH_AUTH_SOCK=${HOME}/Library/Containers/com.maxgoedjen.Secretive.SecretA
 ## Functions
 #
 # Fetch gitignore.io profile via API 
-function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
+function gi() { curl -sL https://www.gitignore.io/api/$@ ;}
 
 ## User configuration
 #

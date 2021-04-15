@@ -1,55 +1,64 @@
 #!/bin/sh 
 #
-# symup.sh [] 
+# symup.sh [Update home directory dot files symlinks] 
 #
 #
 # List of entries to ignore
 IGNORE=".DS_Store .git"
 
-#
-BASEDIR=$(dirname $0)
+# Name of target dotfiles directory
 DOTFILES="dotfiles"
 
-# Commands
+# Paths of commands and script 
+BASEDIR=$(dirname $0)
 LN=$(which ln)
-MV=$(which mv)
+SHASUM=$(which shasum)
+
+function symlink {
+  $LN -nsf $1 $2
+}
+
+function checksum {
+  $SHASUM -a 512 $1
+}
 
 # Loop through dot entries
 for ENTRY in "$BASEDIR"/.[^.]*
 do
-    ENTRYBASE=$(basename $ENTRY)
-    ENTRYTARGET="$HOME/$ENTRYBASE"
-    ENTRYIGNORE=0
-    ENTRYDOTFILE="$DOTFILES/$ENTRYBASE"
+    EBASE=$(basename $ENTRY)
+    ETARGET="$HOME/$EBASE"
+    EIGNORE=0
+    EDOTFILE="$DOTFILES/$EBASE"
 
     # Ignore specific file or directory names
     for IENTRY in $IGNORE
     do 
-      if [ "$IENTRY" = "$ENTRYBASE" ]; then
-        ENTRYIGNORE=1
+      if [ "$IENTRY" = "$EBASE" ]; then
+        EIGNORE=1
       fi
     done
 
     # Ignore entry
-    if [ $ENTRYIGNORE -eq 1 ]; then
-      echo "Ignoring entry $ENTRYBASE"
+    if [ $EIGNORE -eq 1 ]; then
+      echo "Ignoring entry $EBASE"
       continue
     fi
 
-    if [[ -h "$ENTRYTARGET" && ($(readlink "$ENTRYTARGET") == "$ENTRYDOTFILE") ]]; then
-      echo "\x1B[90m$ENTRYTARGET is symlinked to your dotfiles.\x1B[39m"
-    elif [[ -f "$ENTRYTARGET" && $(shasum "$ENTRYTARGET" | awk '{print $2}') == $(shasum "$ENTRYDOTFILE" | awk '{print $2}') ]]; then
-      echo "\x1B[32m$ENTRYTARGET exists and was identical to your dotfile. Overriding with symlink.\x1B[39m"
+    # Check for existing symlink, create and/or update symlink in home directory
+    if [[ -h "$ETARGET" && ($(readlink "$ETARGET") == "$EDOTFILE") ]]; then
+      echo "\x1B[90m$ETARGET is symlinked to your dotfiles.\x1B[39m"
+    elif [[ -f "$ETARGET" && $(checksum "$ETARGET" | awk '{print $2}') == $(checksum "$EDOTFILE" | awk '{print $2}') ]]; then
+      echo "\x1B[32m$ETARGET exists and was identical to your dotfile. Overriding with symlink.\x1B[39m"
 
-      $LN -s $ENTRYDOTFILE $ENTRYTARGET
-    elif [[ -a "$ENTRYTARGET" ]]; then
-      read -p "\x1B[33m$ENTRYTARGET exists and differs from your dotfile. Override?  [yn]\x1B[39m" -n 1
+      symlink $EDOTFILE $ETARGET
+    elif [[ -a "$ETARGET" ]]; then
+      read -p "\x1B[33m$ETARGET exists and differs from your dotfile. Override?  [yn]\x1B[39m" -n 1
 
       if [[ $REPLY =~ [yY]* ]]; then
-        $LN -Fs "$ENTRYDOTFILE" "$ENTRYTARGET"
+        symlink "$EDOTFILE" "$ETARGET"
       fi
     else
-      echo "\x1B[32m$ENTRYTARGET does not exist. Symlinking to dotfile.\x1B[39m"
-      $LN -s "$ENTRYDOTFILE" "$ENTRYTARGET"
+      echo "\x1B[32m$ETARGET does not exist. Symlinking to dotfile.\x1B[39m"
+      symlink -s "$EDOTFILE" "$ETARGET"
     fi
 done
