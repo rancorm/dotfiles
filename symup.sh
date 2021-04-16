@@ -4,7 +4,7 @@
 #
 #
 # List of entries to ignore
-IGNORE=".DS_Store .git"
+IGNORE=".DS_Store .git .gitignore"
 
 # Name of target dotfiles directory
 DOTFILES="dotfiles"
@@ -50,15 +50,15 @@ do
     elif [[ -f "$ETARGET" && $(checksum "$ETARGET" | awk '{print $2}') == $(checksum "$EDOTFILE" | awk '{print $2}') ]]; then
       echo "\x1B[32m$ETARGET exists and was identical to your dotfile. Overriding with symlink.\x1B[39m"
 
-      symlink $EDOTFILE $ETARGET
+      symlink "$EDOTFILE" "$HOME"
     elif [[ -a "$ETARGET" ]]; then
       read -p "\x1B[33m$ETARGET exists and differs from your dotfile. Override?  [yn]\x1B[39m" -n 1
 
-      if [[ $REPLY =~ [yY]* ]]; then
-        symlink "$EDOTFILE" "$ETARGET"
+      if [[ "$REPLY" =~ [yY]* ]]; then
+        symlink "$EDOTFILE" "$HOME"
       fi
     else
       echo "\x1B[32m$ETARGET does not exist. Symlinking to dotfile.\x1B[39m"
-      symlink -s "$EDOTFILE" "$ETARGET"
+      symlink "$EDOTFILE" "$HOME"
     fi
 done
