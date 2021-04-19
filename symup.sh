@@ -40,25 +40,25 @@ do
 
     # Ignore entry
     if [ $EIGNORE -eq 1 ]; then
-      echo "Ignoring entry $EBASE"
+      echo "\x1B[93mIgnoring entry $EBASE"
       continue
     fi
 
     # Check for existing symlink, create and/or update symlink in home directory
     if [[ -h "$ETARGET" && ($(readlink "$ETARGET") == "$EDOTFILE") ]]; then
-      echo "\x1B[90m$ETARGET is symlinked to your dotfiles.\x1B[39m"
+      echo "\x1B[92m$ETARGET is linked to your dotfiles.\x1B[39m"
     elif [[ -f "$ETARGET" && $(checksum "$ETARGET" | awk '{print $2}') == $(checksum "$EDOTFILE" | awk '{print $2}') ]]; then
-      echo "\x1B[32m$ETARGET exists and was identical to your dotfile. Overriding with symlink.\x1B[39m"
+      echo "\x1B[93m$ETARGET exists and was identical to your dotfile. Overriding with symlink.\x1B[39m"
 
       symlink "$EDOTFILE" "$HOME"
     elif [[ -a "$ETARGET" ]]; then
-      read -p "\x1B[33m$ETARGET exists and differs from your dotfile. Override?  [yn]\x1B[39m" -n 1
+      read -p "\x1B[91m$ETARGET exists and differs from your dotfile. Override? [yn]\x1B[39m" -n 1
 
       if [[ "$REPLY" =~ [yY]* ]]; then
         symlink "$EDOTFILE" "$HOME"
       fi
     else
-      echo "\x1B[32m$ETARGET does not exist. Symlinking to dotfile.\x1B[39m"
+      echo "\x1B[92m$ETARGET does not exist. Linking to it's dotfile.\x1B[39m"
       symlink "$EDOTFILE" "$HOME"
     fi
 done
