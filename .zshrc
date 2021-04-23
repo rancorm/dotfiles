@@ -42,7 +42,12 @@ export SSH_AUTH_SOCK=${HOME}/Library/Containers/com.maxgoedjen.Secretive.SecretA
 ## Functions
 #
 # Fetch gitignore.io profile via API 
-function gi() { curl -sL https://www.gitignore.io/api/$@ ;}
+function gi() { curl -sL https://www.gitignore.io/api/$@; }
+
+# Convert CloudFormation parameter file to CodePipeline template style
+function c2c() {
+	jq '{ Parameters: [ .[] |  { (.ParameterKey): .ParameterValue }  ] | add }' < $@;
+}
 
 ## User configuration
 #
@@ -64,7 +69,7 @@ alias tf="terraform"
 # User and brew 
 export PATH=~/bin:~/.cargo/bin:$PATH
 # Go 
-export PaTH=~/go/bin:$PATH
+export PATH=~/go/bin:$PATH
 
 # ZSH prompt (if found)
 if [[ -f ~/.zsh_prompt ]]; then
