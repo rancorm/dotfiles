@@ -3,6 +3,11 @@
 #
 # Notes:
 #
+# Oh-My-Zsh
+# App intergrations
+#  iTerm2 intergration
+#  Secretive
+# User functions and settings
 
 ## Oh My Zsh
 #
@@ -10,7 +15,7 @@
 export ZSH="/Users/jonathan/.oh-my-zsh"
 
 # Theme
-ZSH_THEME="apple"
+ZSH_THEME="nicoulaj"
 
 # History command date format.
 # You can set one of the optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
@@ -19,16 +24,26 @@ HIST_STAMPS="dd.mm.yyyy"
 # Standard plugins: ~/.oh-my-zsh/plugins/
 # Custom plugins: ~/.oh-my-zsh/custom/plugins/
 #
-# git clone https://github.com/zsh-users/{zsh-autosuggestions,zsh-syntax-highlighting}
+# https://github.com/zsh-users/{zsh-autosuggestions,zsh-syntax-highlighting}
 #
 plugins=(
+  xcode
+  kubectl
+  vscode
+  terraform
+  httpie
+  gitignore
   git
   osx
   brew
+  docker
+  docker-compose
+  aws
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
+# Init Oh My Zsh framework
 source $ZSH/oh-my-zsh.sh
 
 ## App intergrations
@@ -41,9 +56,6 @@ export SSH_AUTH_SOCK=${HOME}/Library/Containers/com.maxgoedjen.Secretive.SecretA
 
 ## Functions
 #
-# Fetch gitignore.io profile via API 
-function gi() { curl -sL https://www.gitignore.io/api/$@; }
-
 # Convert CloudFormation parameter file to CodePipeline template style
 function c2c() {
 	jq '{ Parameters: [ .[] |  { (.ParameterKey): .ParameterValue }  ] | add }' < $@;
@@ -64,14 +76,15 @@ function c2c() {
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias code="codium"
 alias tf="terraform"
+alias zhist="history -i"
 
 # Add user directories to PATH 
-# User and brew 
-export PATH=~/bin:~/.cargo/bin:$PATH
+# User, brew, and pip user paths
+export PATH=~/bin:~/.cargo/bin:~/.local/bin:$PATH
 # Go 
 export PATH=~/go/bin:$PATH
 
-# ZSH prompt (if found)
+# Zsh prompt (if found)
 if [[ -f ~/.zsh_prompt ]]; then
   . ~/.zsh_prompt
 fi
