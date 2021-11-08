@@ -34,7 +34,7 @@ plugins=(
   httpie
   gitignore
   git
-  osx
+  macos
   brew
   docker
   docker-compose
@@ -61,6 +61,10 @@ function c2c() {
 	jq '{ Parameters: [ .[] |  { (.ParameterKey): .ParameterValue }  ] | add }' < $@;
 }
 
+function lolbanner {
+	figlet -c -f ~/.local/share/fonts/figlet-fonts/3d.flf $@ | lolcat
+}
+
 ## User configuration
 #
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -77,12 +81,15 @@ function c2c() {
 alias code="codium"
 alias tf="terraform"
 alias zhist="history -i"
+alias cdp="cd ~/Projects"
 
 # Add user directories to PATH 
 # User, brew, and pip user paths
-export PATH=~/bin:~/.cargo/bin:~/.local/bin:$PATH
+export PATH="${HOME}/bin:${HOME}/.cargo/bin:${HOME}/.local/bin:$PATH"
 # Go 
-export PATH=~/go/bin:$PATH
+export PATH="${HOME}/go/bin:$PATH"
+# Krew - https://krew.sigs.k8s.io/docs/user-guide/setup/install/
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # Zsh prompt (if found)
 if [[ -f ~/.zsh_prompt ]]; then
