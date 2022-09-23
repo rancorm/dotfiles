@@ -4,14 +4,13 @@
 show-tags: true
 show-fundamentals: true
 show-separator: true
-show-summary: true
+# show-summary: true
 interval: 5
-currency: CAD
-sort: alpha 
+currency: symbol
+# sort: alpha 
 
 watchlist:
   - ^GSPC
-  - BTC-USD
   - PLTR
   - DTEA
   - BEP-UN.TO
@@ -24,12 +23,19 @@ watchlist:
   - D-UN
   - TFII.TO
   - CMPS
-  - QTRH.TO
+  - BRAX.CN
   - CURA.CN
   - CG.TO
   - NUMI.V
   - BNS.TO
   - WRN.TO
+  - ATZ.TO
+  - AQN.TO
+  - CYBN.NE
+  - ATAI
+  - FTRP.TO
+  - CRSP
+  - TRIP.CN
 
 #colors:
 #  text: "#005fff"

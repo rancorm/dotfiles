@@ -3,6 +3,9 @@
 	name = Jonathan Cormier
 	email = jonathan@cormier.co
 
+[alias]
+       branchcommits = !git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'
+
 [diff]
     guitool = vscode
 [difftool "vscode"]

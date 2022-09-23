@@ -15,7 +15,7 @@
 export ZSH="/Users/jonathan/.oh-my-zsh"
 
 # Theme
-ZSH_THEME="nicoulaj"
+ZSH_THEME="cypher"
 
 # History command date format.
 # You can set one of the optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
@@ -57,12 +57,12 @@ export SSH_AUTH_SOCK=${HOME}/Library/Containers/com.maxgoedjen.Secretive.SecretA
 ## Functions
 #
 # Convert CloudFormation parameter file to CodePipeline template style
-function c2c() {
-	jq '{ Parameters: [ .[] |  { (.ParameterKey): .ParameterValue }  ] | add }' < $@;
+function cf2cp() {
+  jq '{ Parameters: [ .[] | { (.ParameterKey): .ParameterValue } ] | add }' < $@;
 }
 
 function lolbanner {
-	figlet -c -f ~/.local/share/fonts/figlet-fonts/3d.flf $@ | lolcat
+  figlet -c -f ~/.local/share/fonts/figlet-fonts/3d.flf $@ | lolcat
 }
 
 ## User configuration
@@ -95,3 +95,21 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 if [[ -f ~/.zsh_prompt ]]; then
   . ~/.zsh_prompt
 fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/jonathan/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/jonathan/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/jonathan/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/jonathan/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# Starship Prompt
+eval "$(starship init zsh)"
