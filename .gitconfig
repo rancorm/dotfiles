@@ -4,7 +4,9 @@
 	email = jonathan@cormier.co
 
 [alias]
-       branchcommits = !git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'
+       branchcommits = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'
+       age = !git --no-pager log --follow --format=%ad --date relative -1
+
 
 [diff]
     guitool = vscode
