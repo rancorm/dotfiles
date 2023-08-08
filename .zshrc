@@ -74,11 +74,11 @@ function lolbanner {
 # Command aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias code="codium"
 alias tf="terraform"
 alias zhist="history -i"
 alias cdp="cd ~/Projects"
 alias e="emacs"
+alias cn="vscn ."
 
 # GitLab CLI aliases
 alias glmr="glab mr create --fill --fill-commit-body --yes -b"
