@@ -1,4 +1,9 @@
-# This is Git's per-user configuration file.
+#
+# Jonathan Cormier's Git Configuration
+#
+# Email: jonathan@cormier.co
+#
+#
 [user]
 	name = Jonathan Cormier
 	email = jonathan@cormier.co
@@ -7,8 +12,20 @@
        branchcommits = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'
        age = !git --no-pager log --follow --format=%ad --date relative -1
 
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Jonathan Cormier
+	email = jonathan@cormier.co
+
+[merge]
+    tool = meld
 
 [diff]
-    guitool = vscode
-[difftool "vscode"]
-    cmd = codium --wait --diff $LOCAL $REMOTE
+    guitool = code
+
+[difftool "code"]
+    cmd = code --wait --diff $LOCAL $REMOTE

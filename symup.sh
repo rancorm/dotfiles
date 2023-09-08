@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/bash
 #
 # symup.sh [Update home directory dot files symlinks] 
 #
