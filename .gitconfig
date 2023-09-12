@@ -23,6 +23,7 @@
 
 [merge]
     tool = meld
+    conflictStyle = zdiff3 
 
 [diff]
     guitool = code

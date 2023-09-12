@@ -11,7 +11,7 @@
 ## Oh My Zsh
 #
 # Path to your oh-my-zsh installation
-export ZSH="/Users/jonathan/.oh-my-zsh"
+export ZSH=$HOME"/.oh-my-zsh"
 
 # Theme
 ZSH_THEME="clean"
