@@ -83,13 +83,17 @@ alias cn="vscn ."
 # GitLab CLI aliases
 alias glmr="glab mr create --fill --fill-commit-body --yes -b"
 
-# Add user directories to PATH 
-# User, brew, and pip user paths
+# Add user directories to PATH. Local bin, Brew, and Pip
 export PATH="/usr/local/sbin:${HOME}/bin:${HOME}/.cargo/bin:${HOME}/.local/bin:$PATH"
+
 # Go 
 export PATH="${HOME}/go/bin:$PATH"
+
 # Krew - https://krew.sigs.k8s.io/docs/user-guide/setup/install/
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# Ghidra
+export PATH="/opt/ghidra:$PATH"
 
 # Zsh prompt (if found)
 if [[ -f ~/.zsh_prompt ]]; then
