@@ -32,3 +32,5 @@
 
 [difftool "code"]
     cmd = code --wait --diff $LOCAL $REMOTE
+[sequence]
+	editor = interactive-rebase-tool

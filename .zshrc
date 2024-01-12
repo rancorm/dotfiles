@@ -38,8 +38,11 @@ plugins=(
   docker
   docker-compose
   aws
-  zsh-autosuggestions
-  zsh-syntax-highlighting
+  gh
+  pip
+  virtualenv
+#  zsh-autosuggestions
+#  zsh-syntax-highlighting
 )
 
 # Init Oh My Zsh framework
@@ -71,6 +74,9 @@ function lolbanner {
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+# Disable paste highlighting
+zle_highlight=('paste:none')
+
 # Command aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -79,6 +85,7 @@ alias zhist="history -i"
 alias cdp="cd ~/Projects"
 alias e="emacs"
 alias cn="vscn ."
+alias dy="dig +short @dns.toys"
 
 # GitLab CLI aliases
 alias glmr="glab mr create --fill --fill-commit-body --yes -b"
