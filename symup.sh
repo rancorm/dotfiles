@@ -53,7 +53,7 @@ do
 	do
 	    SUBBASE=$(basename "$SUBENTRY")
 	    SUBTARGET="$HOME/.config/$SUBBASE"
-	    SUBDOTFILE="$DOTFILES/.config/$SUBBASE"
+	    SUBDOTFILE="$HOME/$DOTFILES/.config/$SUBBASE"
 
 	    # Check for existing symlink, create and/or update symlink in home directory
 	    if [[ -h "$SUBTARGET" && ($(readlink "$SUBTARGET") == "$SUBDOTFILE") ]]; then
