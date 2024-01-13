@@ -1,7 +1,20 @@
 -- 
--- Jonathan Cormier's NeoVIM
+-- Jonathan Cormier's Neovim
 --
 --
+
+-- Neovim version check
+local neovim_version = vim.version()
+
+if neovim_version.major >= 0 and neovim_version.minor < 8 then
+	print(string.format("Config requires newer version of neovim. Current version is %d.%d.%d",
+		neovim_version.major,
+		neovim_version.minor,
+		neovim_version.patch))
+
+	return
+end
+
 -- Lazy package loader
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
