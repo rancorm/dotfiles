@@ -40,7 +40,7 @@ do
 
     # Ignore entry
     if [ $EIGNORE -eq 1 ]; then
-      echo "\x1B[93mIgnoring entry $EBASE\x1B[39m"
+      echo -e "\x1B[93mIgnoring entry $EBASE\x1B[39m"
       continue
     fi
 
