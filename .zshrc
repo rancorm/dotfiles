@@ -83,12 +83,8 @@ zle_highlight=('paste:none')
 alias tf="terraform"
 alias zhist="history -i"
 alias cdp="cd ~/Projects"
-alias e="emacs"
-alias cn="vscn ."
 alias dy="dig +short @dns.toys"
-
-# GitLab CLI aliases
-alias glmr="glab mr create --fill --fill-commit-body --yes -b"
+alias nv="nvim"
 
 # Add user directories to PATH. Local bin, Brew, and Pip
 export PATH="/usr/local/sbin:${HOME}/bin:${HOME}/.cargo/bin:${HOME}/.local/bin:$PATH"
