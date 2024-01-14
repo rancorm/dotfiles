@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# symup.sh [Update home directory dot files symlinks] 
+# symup.sh [Dotfile symlink manager] 
 #
 #
 # List of entries to ignore

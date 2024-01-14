@@ -13,7 +13,7 @@
 	age = !git --no-pager log --follow --format=%ad --date relative -1
 	update-repos = "!update-repos.sh"
 	reftime = !git --no-pager log -1 --format="%cd" --date=relative
-
+	whereami = !git rev-parse HEAD
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true

@@ -38,7 +38,10 @@ plugins = {
     },
     {
 	'ThePrimeagen/harpoon', branch = 'harpoon2',
-	dependencies = { 'nvim-lua/plenary.nvim' }
+	dependencies = {
+	    'nvim-lua/plenary.nvim',
+	    'nvim-telescope/telescope.nvim'
+	}
     },
     {
 	'nvim-treesitter/nvim-treesitter'
@@ -48,6 +51,7 @@ plugins = {
     }
 }
 
+-- Lazy plugin manager
 require('lazy').setup(plugins, opts)
 
 -- Harpoon
@@ -55,6 +59,8 @@ local harpoon = require('harpoon')
 harpoon:setup({})
 
 vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
+vim.keymap.set("n", "<leader>c", function() harpoon:list():clear() end)
+
 vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
 vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
@@ -93,4 +99,4 @@ vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
     { desc = "Open harpoon window" })
 
 -- Theme
-vim.cmd([[colorscheme slate]])
+vim.cmd([[colorscheme elflord]])
