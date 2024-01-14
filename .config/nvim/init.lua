@@ -7,7 +7,7 @@
 local neovim_version = vim.version()
 
 if neovim_version.major >= 0 and neovim_version.minor < 8 then
-	print(string.format("Config requires newer version of neovim. Current version is %d.%d.%d",
+	print(string.format("Config requires newer version of Neovim, current version is %d.%d.%d",
 		neovim_version.major,
 		neovim_version.minor,
 		neovim_version.patch))
