@@ -26,6 +26,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # https://github.com/zsh-users/{zsh-autosuggestions,zsh-syntax-highlighting}
 #
 plugins=(
+  screen
   xcode
   kubectl
   vscode
@@ -41,8 +42,9 @@ plugins=(
   gh
   pip
   virtualenv
-#  zsh-autosuggestions
-#  zsh-syntax-highlighting
+  zsh-completions
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 # Init Oh My Zsh framework
