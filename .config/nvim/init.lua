@@ -34,23 +34,23 @@ vim.opt.rtp:prepend(lazypath)
 -- Lazy plugins
 plugins = { 
     {
-	'nvim-telescope/telescope.nvim', tag = '0.1.5',
+	"nvim-telescope/telescope.nvim", tag = "0.1.5",
 	dependencies = {
-	    'nvim-lua/plenary.nvim'
+	    "nvim-lua/plenary.nvim"
 	}
     },
     {
-	'ThePrimeagen/harpoon', branch = 'harpoon2',
+	"ThePrimeagen/harpoon", branch = "harpoon2",
 	dependencies = {
-	    'nvim-lua/plenary.nvim',
-	    'nvim-telescope/telescope.nvim'
+	    "nvim-lua/plenary.nvim",
+	    "nvim-telescope/telescope.nvim"
 	}
     },
     {
-	'nvim-treesitter/nvim-treesitter'
+	"nvim-treesitter/nvim-treesitter"
     },
     {
-	'lourenci/github-colors'
+	"lourenci/github-colors"
     },
     {
 	"nvim-neo-tree/neo-tree.nvim", branch = "v3.x",
@@ -60,17 +60,22 @@ plugins = {
 	    "MunifTanjim/nui.nvim",
 	    "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 	}
-    }	
+    },
+    {
+	"neoclide/coc.nvim", config = function()
+	    vim.cmd [[autocmd FileType * call coc#start()]]
+	end
+    }
 }
 
 -- Lazy plugin manager
-require('lazy').setup(plugins, opts)
+require("lazy").setup(plugins, opts)
 
 -- Telescope
-local telescope = require('telescope.builtin')
+local telescope = require("telescope.builtin")
 
 -- Harpoon
-local harpoon = require('harpoon')
+local harpoon = require("harpoon")
 harpoon:setup({})
 
 vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
