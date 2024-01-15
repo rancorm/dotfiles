@@ -7,12 +7,12 @@
 local neovim_version = vim.version()
 
 if neovim_version.major >= 0 and neovim_version.minor < 8 then
-	print(string.format("Config requires newer version of Neovim, current version is %d.%d.%d",
-		neovim_version.major,
-		neovim_version.minor,
-		neovim_version.patch))
+    print(string.format("Config requires newer version of Neovim, current version is %d.%d.%d",
+	neovim_version.major,
+	neovim_version.minor,
+	neovim_version.patch))
 
-	return
+    return
 end
 
 -- Lazy package loader
@@ -88,6 +88,22 @@ vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
+-- Functions
+function get_apple_interface_style()
+    local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
+    local result = handle:read("*a")
+    handle:close()
+
+    return result
+end
+
+function is_binary(binary_name)
+    local command = "command -v " .. binary_name .. " > /dev/null 2>&1 || { echo >&2 'not found'; exit 1; }"
+    local exit_code = os.execute(command)
+
+    return exit_code == 0
+end
+
 -- Telescope configuration
 local conf = require("telescope.config").values
 local function toggle_telescope(harpoon_files)
@@ -106,6 +122,7 @@ local function toggle_telescope(harpoon_files)
     }):find()
 end
 
+-- Telescope Harpoon list toggle
 vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
     { desc = "Open harpoon window" })
 
@@ -116,4 +133,19 @@ vim.opt.shiftwidth = 4 -- What you expecting
 -- vim.opt.expandtab = true -- Works without this
 
 -- Theme
-vim.cmd([[colorscheme elflord]])
+local has_defaults = is_binary("defaults")
+
+-- Check for macOS defaults
+if has_defaults then
+    local apple_interface_style = get_apple_interface_style()
+
+    -- Set theme based on system interface style
+    if apple_interface_style == "Dark\n" then
+	vim.cmd([[colorscheme elflord]])
+    elseif apple_interface_style == "Light\n" then
+	vim.cmd([[colorscheme github-colors]])
+    end
+else
+    -- Set theme
+    vim.cmd([[colorscheme elflord]])
+end
