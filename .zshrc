@@ -20,6 +20,16 @@ ZSH_THEME="clean"
 # You can set one of the optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="dd.mm.yyyy"
 
+function custom_plugin() {
+    local plugin_name="$1"
+    local zsh_plugins_dir="$ZSH/custom/plugins"
+
+    # Check if the plugin directory exists
+    if [ -d "$zsh_plugins_dir/$plugin_name" ]; then
+	echo $plugin_name
+    fi
+}
+
 # Standard plugins: ~/.oh-my-zsh/plugins/
 # Custom plugins: ~/.oh-my-zsh/custom/plugins/
 #
@@ -42,10 +52,11 @@ plugins=(
   gh
   pip
   virtualenv
-  zsh-completions
-  zsh-autosuggestions
-  zsh-syntax-highlighting
 )
+
+plugins+=($(custom_plugin "zsh-completions"))
+plugins+=($(custom_plugin "zsh-autosuggestions"))
+plugins+=($(custom_plugin "zsh-syntax-highlighting"))
 
 # Init Oh My Zsh framework
 source $ZSH/oh-my-zsh.sh
