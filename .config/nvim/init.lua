@@ -1,5 +1,5 @@
 -- 
--- Jonathan Cormier's Neovim
+-- Jonathan Cormier's Neovim config
 --
 --
 
@@ -31,10 +31,13 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+-- Lazy plugins
 plugins = { 
     {
 	'nvim-telescope/telescope.nvim', tag = '0.1.5',
-	dependencies = { 'nvim-lua/plenary.nvim' }
+	dependencies = {
+	    'nvim-lua/plenary.nvim'
+	}
     },
     {
 	'ThePrimeagen/harpoon', branch = 'harpoon2',
@@ -48,11 +51,23 @@ plugins = {
     },
     {
 	'lourenci/github-colors'
-    }
+    },
+    {
+	"nvim-neo-tree/neo-tree.nvim", branch = "v3.x",
+	dependencies = {
+	    "nvim-lua/plenary.nvim",
+	    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+	    "MunifTanjim/nui.nvim",
+	    "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+	}
+    }	
 }
 
 -- Lazy plugin manager
 require('lazy').setup(plugins, opts)
+
+-- Telescope
+local telescope = require('telescope.builtin')
 
 -- Harpoon
 local harpoon = require('harpoon')
@@ -60,6 +75,7 @@ harpoon:setup({})
 
 vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
 vim.keymap.set("n", "<leader>c", function() harpoon:list():clear() end)
+vim.keymap.set("n", "<leader>g", function() telescope:git_files() end)
 
 vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
@@ -90,13 +106,14 @@ local function toggle_telescope(harpoon_files)
     }):find()
 end
 
+vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
+    { desc = "Open harpoon window" })
+
+-- Classic Vim settings
 vim.opt.tabstop = 8 -- Always 8 (see :h tabstop)
 vim.opt.softtabstop = 4 -- What you expecting
 vim.opt.shiftwidth = 4 -- What you expecting
 -- vim.opt.expandtab = true -- Works without this
-
-vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
-    { desc = "Open harpoon window" })
 
 -- Theme
 vim.cmd([[colorscheme elflord]])
