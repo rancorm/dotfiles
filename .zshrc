@@ -79,13 +79,8 @@ function lolbanner {
 
 ## User configuration
 #
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# Prevent session saving
+export SHELL_SESSIONS_DISABLE=1
 
 # Disable paste highlighting
 zle_highlight=('paste:none')

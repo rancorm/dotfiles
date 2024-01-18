@@ -61,11 +61,11 @@ plugins = {
 	    "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 	}
     },
-    {
-	"neoclide/coc.nvim", config = function()
-	    vim.cmd [[autocmd FileType * call coc#start()]]
-	end
-    }
+--    {
+--	"neoclide/coc.nvim", config = function()
+--	    vim.cmd [[autocmd FileType * call coc#start()]]
+--	end
+--    }
 }
 
 -- Lazy plugin manager
@@ -93,8 +93,11 @@ vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
+-- Terminal-mode keymaps
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+
 -- Functions
-function get_apple_interface_style()
+local function get_apple_interface_style()
     local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
     local result = handle:read("*a")
     handle:close()
@@ -102,7 +105,7 @@ function get_apple_interface_style()
     return result
 end
 
-function is_binary(binary_name)
+local function is_binary(binary_name)
     local command = "command -v " .. binary_name .. " > /dev/null 2>&1 || { echo >&2 'not found'; exit 1; }"
     local exit_code = os.execute(command)
 
@@ -131,7 +134,7 @@ end
 vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
     { desc = "Open harpoon window" })
 
--- Classic Vim settings
+-- Vim settings
 vim.opt.tabstop = 8 -- Always 8 (see :h tabstop)
 vim.opt.softtabstop = 4 -- What you expecting
 vim.opt.shiftwidth = 4 -- What you expecting
