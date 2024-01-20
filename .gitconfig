@@ -3,25 +3,26 @@
 #
 # Email: jonathan@cormier.co
 #
-#
 [user]
-	name = Jonathan Cormier
-	email = jonathan@cormier.co
+    name = Jonathan Cormier
+    email = jonathan@cormier.co
 
 [alias]
-	branchcommits = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'
-	age = !git --no-pager log --follow --format=%ad --date relative -1
-	update-repos = "!update-repos.sh"
-	reftime = !git --no-pager log -1 --format="%cd" --date=relative
-	whereami = !git rev-parse HEAD
+    branchcommits = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'
+    age = !git --no-pager log --follow --format=%ad --date relative -1
+    update-repos = "!update-repos.sh"
+    reftime = !git --no-pager log -1 --format="%cd" --date=relative
+    whereami = !git rev-parse HEAD
+    squash = !git reset -i HEAD~$1
+
 [filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
 
 [init]
-	defaultBranch = main
+    defaultBranch = main
 
 [merge]
     tool = meld
@@ -32,7 +33,9 @@
 
 [difftool "code"]
     cmd = code --wait --diff $LOCAL $REMOTE
+
 [sequence]
-	editor = interactive-rebase-tool
+    editor = interactive-rebase-tool
+
 [core]
-	editor = nvim
+    editor = nvim
