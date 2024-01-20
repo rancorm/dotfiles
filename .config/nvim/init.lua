@@ -61,6 +61,9 @@ plugins = {
 	    "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 	}
     },
+    {
+	"github/copilot.vim"
+    }
 --    {
 --	"neoclide/coc.nvim", config = function()
 --	    vim.cmd [[autocmd FileType * call coc#start()]]

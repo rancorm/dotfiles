@@ -34,3 +34,5 @@
     cmd = code --wait --diff $LOCAL $REMOTE
 [sequence]
 	editor = interactive-rebase-tool
+[core]
+	editor = nvim
