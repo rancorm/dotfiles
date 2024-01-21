@@ -49,8 +49,8 @@ plugins = {
     {
 	"nvim-treesitter/nvim-treesitter"
     },
-    {
-	"lourenci/github-colors"
+    {	
+	"projekt0n/github-nvim-theme"
     },
     {
 	"nvim-neo-tree/neo-tree.nvim", branch = "v3.x",
@@ -172,11 +172,12 @@ if has_defaults then
 
     -- Set theme based on system interface style
     if apple_interface_style == "Dark\n" then
-	vim.cmd([[colorscheme elflord]])
+	vim.cmd([[colorscheme github_dark_default]])
     elseif apple_interface_style == "Light\n" then
-	vim.cmd([[colorscheme github-colors]])
+	vim.cmd([[colorscheme github_light_default]])
+	else
     end
 else
     -- Set theme
-    vim.cmd([[colorscheme elflord]])
+    vim.cmd([[colorscheme github_dark_default]])
 end
