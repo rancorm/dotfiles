@@ -39,3 +39,6 @@
 
 [core]
     editor = nvim
+[rebase]
+	autosquash = true
+	autostash = true
