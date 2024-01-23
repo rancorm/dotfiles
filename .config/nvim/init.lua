@@ -83,7 +83,10 @@ plugins = {
 	},
 	lazy = false,
 	priority = 100,
-}
+      },
+      {
+	  "sbdchd/neoformat"
+      }
 --    {
 --	"neoclide/coc.nvim", config = function()
 --	    vim.cmd [[autocmd FileType * call coc#start()]]
@@ -159,8 +162,8 @@ vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
 
 -- Vim settings
 vim.opt.tabstop = 8 -- Always 8 (see :h tabstop)
-vim.opt.softtabstop = 4 -- What you expecting
-vim.opt.shiftwidth = 4 -- What you expecting
+vim.opt.softtabstop = 2 -- What you expecting
+vim.opt.shiftwidth = 2 -- What you expecting
 -- vim.opt.expandtab = true -- Works without this
 
 -- Theme
