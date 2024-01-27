@@ -14,6 +14,7 @@
     reftime = !git --no-pager log -1 --format="%cd" --date=relative
     whereami = !git rev-parse HEAD
     squash = "!f() { git rebase -i HEAD~$1; }; f" 
+    fixup = "!f() { git commit --fixup HEAD~1; }; f"
 
 [filter "lfs"]
     process = git-lfs filter-process
