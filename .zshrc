@@ -93,6 +93,7 @@ alias zhist="history -i"
 alias cdp="cd ~/Projects"
 alias dy="dig +short @dns.toys"
 alias nv="nvim"
+alias canopy="tree --dirsfirst -I __pycache__"
 
 # Add user directories to PATH. Local bin, Brew, and Pip
 export PATH="/usr/local/sbin:${HOME}/bin:${HOME}/.cargo/bin:${HOME}/.local/bin:$PATH"

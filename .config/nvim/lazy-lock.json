@@ -1,5 +1,6 @@
 {
   "copilot.vim": { "branch": "release", "commit": "49e0348bfb913fae63ca5ddb987a8bccd193da86" },
+  "galaxyline.nvim": { "branch": "main", "commit": "20f5f750002532a35193f55cd499074fc97d933d" },
   "github-nvim-theme": { "branch": "main", "commit": "067cb69b93957ace0d0d83811453b401d1fb672c" },
   "harpoon": { "branch": "harpoon2", "commit": "2cd4e03372f7ee5692c8caa220f479ea07970f17" },
   "image.nvim": { "branch": "master", "commit": "245422e5c4774f0640d41c0eadec77396f2be4a9" },

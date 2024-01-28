@@ -1,9 +1,10 @@
--- 
+--
 -- Jonathan Cormier's Neovim config
 --
 --
+local cmd, fn, opt = vim.cmd, vim.fn, vim.opt
+local km, g = vim.keymap, vim.g
 
--- Neovim version check
 local neovim_version = vim.version()
 
 if neovim_version.major >= 0 and neovim_version.minor < 8 then
@@ -16,82 +17,78 @@ if neovim_version.major >= 0 and neovim_version.minor < 8 then
 end
 
 -- Lazy package loader
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
+  fn.system({
     "git",
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
     lazypath,
   })
 end
 
-vim.opt.rtp:prepend(lazypath)
+opt.rtp:prepend(lazypath)
 
 -- Lazy plugins
 plugins = { 
-    {
-	"nvim-telescope/telescope.nvim", tag = "0.1.5",
-	dependencies = {
-	    "nvim-lua/plenary.nvim"
-	}
-    },
-    {
-	"ThePrimeagen/harpoon", branch = "harpoon2",
-	dependencies = {
-	    "nvim-lua/plenary.nvim",
-	    "nvim-telescope/telescope.nvim"
-	}
-    },
-    {
-	"nvim-treesitter/nvim-treesitter"
-    },
-    {	
-	"projekt0n/github-nvim-theme"
-    },
-    {
-	"nvim-neo-tree/neo-tree.nvim", branch = "v3.x",
-	dependencies = {
-	    "nvim-lua/plenary.nvim",
-	    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-	    "MunifTanjim/nui.nvim",
-	    "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-	}
-    },
-    {
-	"github/copilot.vim"
-    },
-    {
-	"coffebar/neovim-project",
-	opts = {
-	    projects = { -- define project roots
-		"~/projects/*",
-		"~/.config/*",
-	    },
-	},
-	init = function()
-	    -- enable saving the state of plugins in the session
-	    vim.opt.sessionoptions:append("globals") -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
-	end,
-	dependencies = {
-	    { "nvim-lua/plenary.nvim" },
-	    { "nvim-telescope/telescope.nvim", tag = "0.1.4" },
-	    { "Shatur/neovim-session-manager" },
-	},
-	lazy = false,
-	priority = 100,
+  {
+    "nvim-telescope/telescope.nvim", tag = "0.1.5",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    }
+  },
+  {
+    "ThePrimeagen/harpoon", branch = "harpoon2",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  },
+  {
+    "nvim-treesitter/nvim-treesitter"
+  },
+  {	
+    "projekt0n/github-nvim-theme"
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim", branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", 
+      "MunifTanjim/nui.nvim",
+      "3rd/image.nvim", 
+    }
+  },
+  {
+    "github/copilot.vim"
+  },
+  {
+    "coffebar/neovim-project",
+    opts = {
+      -- Define a list of project paths 
+      projects = {
+	"~/projects/*",
+	"~/.config/*",
       },
-      {
-	  "sbdchd/neoformat"
-      }
---    {
---	"neoclide/coc.nvim", config = function()
---	    vim.cmd [[autocmd FileType * call coc#start()]]
---	end
---    }
+    },
+    init = function()
+      -- Save the state of plugins in the session
+      opt.sessionoptions:append("globals") 
+    end,
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope.nvim", tag = "0.1.4" },
+      { "Shatur/neovim-session-manager" },
+    },
+    lazy = false,
+    priority = 100,
+  },
+  {
+    "sbdchd/neoformat"
+  }
 }
 
 -- Lazy plugin manager
@@ -104,23 +101,20 @@ local telescope = require("telescope.builtin")
 local harpoon = require("harpoon")
 harpoon:setup({})
 
-vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
-vim.keymap.set("n", "<leader>c", function() harpoon:list():clear() end)
-vim.keymap.set("n", "<leader>g", function() telescope:git_files() end)
+km.set("n", "<leader>a", function() harpoon:list():append() end)
+km.set("n", "<leader>c", function() harpoon:list():clear() end)
+km.set("n", "<leader>g", function() telescope:git_files() end)
 
-vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+km.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
-vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
+km.set("n", "<C-h>", function() harpoon:list():select(1) end)
+km.set("n", "<C-t>", function() harpoon:list():select(2) end)
+km.set("n", "<C-n>", function() harpoon:list():select(3) end)
+km.set("n", "<C-s>", function() harpoon:list():select(4) end)
 
 -- Toggle previous & next buffers stored within Harpoon list
-vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
-
--- Terminal-mode keymaps
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+km.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+km.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
 -- Functions
 local function get_apple_interface_style()
@@ -157,16 +151,113 @@ local function toggle_telescope(harpoon_files)
 end
 
 -- Telescope Harpoon list toggle
-vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
+km.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
     { desc = "Open harpoon window" })
 
--- Vim settings
-vim.opt.tabstop = 8 -- Always 8 (see :h tabstop)
-vim.opt.softtabstop = 2 -- What you expecting
-vim.opt.shiftwidth = 2 -- What you expecting
--- vim.opt.expandtab = true -- Works without this
+-- Indentation
+opt.tabstop = 8 -- Always 8 (see :h tabstop)
+opt.softtabstop = 2 -- What you expecting
+opt.shiftwidth = 2 -- What you expecting
+-- opt.expandtab = true -- Works without this
 
--- Theme
+-- Display
+opt.number = true
+opt.relativenumber = true
+opt.numberwidth = 2
+-- opt.signcolumn = "yes:1"
+opt.laststatus = 2
+opt.wrap = true
+opt.linebreak = true -- Wrap at word boundaries 
+opt.showmode = false
+opt.emoji = false
+opt.list = false -- Hide whitespace
+opt.listchars = {
+  tab = "» ",
+  trail = "·",
+  extends = "…",
+  precedes = "…",
+  nbsp = "␣",
+  eol = "↲",
+}
+
+-- Title
+opt.title = true
+opt.titlestring = "❐ %t"
+opt.titlelen = 70
+opt.titleold = "%{ fnamemodify(getcwd(), :t) }"
+
+-- Search
+opt.ignorecase = true
+opt.smartcase = true
+opt.wrapscan = true
+opt.scrolloff = 4
+opt.showmatch = true
+
+-- Motions
+-- Treat dash separated words as a word text object
+opt.iskeyword:prepend { "-" } 
+
+-- Window splits and buffers
+opt.hidden = true
+opt.splitbelow = true
+opt.splitright = true
+opt.fillchars = {
+  vert = '│',
+  fold = ' ',
+  diff = '╱', -- alternatives: ⣿ ░
+  msgsep = '‾',
+  foldopen = '▾',
+  foldsep = '│',
+  foldclose = '▸',
+}
+
+-- Wildcard and file globbing
+opt.wildignorecase = true
+opt.wildcharm = 26 -- <C-z>
+opt.wildignore = {
+  "*.aux,*.out,*.toc",
+  "*.o,*.obj,*.dll,*.jar,*.pyc,__pycache__,*.rbc,*.class",
+  -- Media
+  "*.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp",
+  "*.avi,*.m4a,*.mp3,*.oga,*.ogg,*.wav,*.webm",
+  "*.eot,*.otf,*.ttf,*.woff",
+  "*.doc,*.pdf",
+  -- Archives
+  "*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz",
+  -- Temporary
+  "*.*~,*~ ",
+  "*.swp,.lock,.DS_Store,._*,tags.lock",
+  -- Version control
+  ".git,.svn",
+}
+opt.wildoptions = "pum"
+opt.pumblend = 7
+opt.pumheight = 20
+
+-- Mouse
+opt.mouse = "a"
+opt.mousefocus = true
+-- opt.mousemodel = "extend"
+
+-- Timings
+opt.updatetime = 100
+opt.timeout = true
+opt.timeoutlen = 1000
+opt.ttimeoutlen = 10
+
+-- Netrw
+g.netrw_banner = 0
+g.netrw_liststyle = 3
+g.netrw_browse_split = 2
+g.netrw_altv = 1
+
+-- Terminal
+opt.termguicolors = true
+
+-- Mappings
+km.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+
+-- Colors and themes
 local has_defaults = is_binary("defaults")
 
 -- Check for macOS defaults
@@ -175,12 +266,11 @@ if has_defaults then
 
     -- Set theme based on system interface style
     if apple_interface_style == "Dark\n" then
-	vim.cmd([[colorscheme github_dark_default]])
+	cmd([[colorscheme github_dark_default]])
     elseif apple_interface_style == "Light\n" then
-	vim.cmd([[colorscheme github_light_default]])
-	else
+	cmd([[colorscheme github_light_default]])
     end
 else
     -- Set theme
-    vim.cmd([[colorscheme github_dark_default]])
+    cmd([[colorscheme github_dark_default]])
 end
