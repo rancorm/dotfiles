@@ -3,9 +3,9 @@
 --
 
 -- Aliases to reduce syntax noise
-local cmd, fn, opt = vim.cmd, vim.fn, vim.opt
-local km, g, api = vim.keymap, vim.g, vim.api
-local bo = vim.bo
+cmd, fn, opt = vim.cmd, vim.fn, vim.opt
+km, g, api = vim.keymap, vim.g, vim.api
+bo = vim.bo
 
 local neovim_version = vim.version()
 
@@ -34,74 +34,9 @@ end
 
 opt.rtp:prepend(lazypath)
 
--- Lazy plugins
-plugins = { 
-  {
-    "nvim-telescope/telescope.nvim", tag = "0.1.5",
-    dependencies = {
-      "nvim-lua/plenary.nvim"
-    }
-  },
-  {
-    "ThePrimeagen/harpoon", branch = "harpoon2",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    }
-  },
-  {
-    "nvim-treesitter/nvim-treesitter"
-  },
-  {	
-    "projekt0n/github-nvim-theme"
-  },
-  {
-    "nvim-neo-tree/neo-tree.nvim", branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", 
-      "MunifTanjim/nui.nvim",
-      "3rd/image.nvim", 
-    }
-  },
-  {
-    "github/copilot.vim"
-  },
-  {
-    "coffebar/neovim-project",
-    opts = {
-      -- Define a list of project paths 
-      projects = {
-	"~/projects/*",
-	"~/.config/*",
-      },
-    },
-    init = function()
-      -- Save the state of plugins in the session
-      opt.sessionoptions:append("globals") 
-    end,
-    dependencies = {
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope.nvim", tag = "0.1.4" },
-      { "Shatur/neovim-session-manager" },
-    },
-    lazy = false,
-    priority = 100,
-  },
-  {
-    "sbdchd/neoformat"
-  }
-}
+g.mapleader = " "
 
--- Lazy plugin manager
-require("lazy").setup(plugins, opts)
-
--- Telescope
-local telescope = require("telescope.builtin")
-
--- Harpoon
-local harpoon = require("harpoon")
-harpoon:setup({})
+require("lazy").setup("plugins")
 
 -- Functions
 local function get_apple_interface_style()
@@ -118,28 +53,6 @@ local function is_binary(binary_name)
 
     return exit_code == 0
 end
-
--- Telescope configuration
-local conf = require("telescope.config").values
-local function toggle_telescope(harpoon_files)
-    local file_paths = {}
-    for _, item in ipairs(harpoon_files.items) do
-        table.insert(file_paths, item.value)
-    end
-
-    require("telescope.pickers").new({}, {
-        prompt_title = "Harpoon",
-        finder = require("telescope.finders").new_table({
-            results = file_paths,
-        }),
-        previewer = conf.file_previewer({}),
-        sorter = conf.generic_sorter({}),
-    }):find()
-end
-
--- Telescope Harpoon list toggle
-km.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
-    { desc = "Open harpoon window" })
 
 -- Indentation
 opt.tabstop = 8 -- Always 8 (see :h tabstop)
@@ -240,22 +153,6 @@ g.netrw_altv = 1
 -- Terminal
 opt.termguicolors = true
 
--- Key Maps
-km.set("n", "<leader>a", function() harpoon:list():append() end)
-km.set("n", "<leader>c", function() harpoon:list():clear() end)
-km.set("n", "<leader>g", function() telescope:git_files() end)
-
-km.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-
-km.set("n", "<C-h>", function() harpoon:list():select(1) end)
-km.set("n", "<C-t>", function() harpoon:list():select(2) end)
-km.set("n", "<C-n>", function() harpoon:list():select(3) end)
-km.set("n", "<C-s>", function() harpoon:list():select(4) end)
-
---- Toggle previous & next buffers stored within Harpoon list
-km.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-km.set("n", "<C-S-N>", function() harpoon:list():next() end)
-
 --- Terminal key maps
 km.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
@@ -289,20 +186,3 @@ api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- Themes
-local has_defaults = is_binary("defaults")
-
---- Check for macOS defaults
-if has_defaults then
-    local apple_interface_style = get_apple_interface_style()
-
-    -- Set theme based on system interface style
-    if apple_interface_style == "Dark\n" then
-	cmd([[colorscheme github_dark_default]])
-    elseif apple_interface_style == "Light\n" then
-	cmd([[colorscheme github_light_default]])
-    end
-else
-    -- Set theme
-    cmd([[colorscheme github_dark_default]])
-end
