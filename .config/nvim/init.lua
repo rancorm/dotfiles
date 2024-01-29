@@ -1,9 +1,11 @@
 --
 -- Jonathan Cormier's Neovim config
 --
---
+
+-- Aliases to reduce syntax noise
 local cmd, fn, opt = vim.cmd, vim.fn, vim.opt
-local km, g = vim.keymap, vim.g
+local km, g, api = vim.keymap, vim.g, vim.api
+local bo = vim.bo
 
 local neovim_version = vim.version()
 
@@ -101,21 +103,6 @@ local telescope = require("telescope.builtin")
 local harpoon = require("harpoon")
 harpoon:setup({})
 
-km.set("n", "<leader>a", function() harpoon:list():append() end)
-km.set("n", "<leader>c", function() harpoon:list():clear() end)
-km.set("n", "<leader>g", function() telescope:git_files() end)
-
-km.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-
-km.set("n", "<C-h>", function() harpoon:list():select(1) end)
-km.set("n", "<C-t>", function() harpoon:list():select(2) end)
-km.set("n", "<C-n>", function() harpoon:list():select(3) end)
-km.set("n", "<C-s>", function() harpoon:list():select(4) end)
-
--- Toggle previous & next buffers stored within Harpoon list
-km.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-km.set("n", "<C-S-N>", function() harpoon:list():next() end)
-
 -- Functions
 local function get_apple_interface_style()
     local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
@@ -158,7 +145,6 @@ km.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
 opt.tabstop = 8 -- Always 8 (see :h tabstop)
 opt.softtabstop = 2 -- What you expecting
 opt.shiftwidth = 2 -- What you expecting
--- opt.expandtab = true -- Works without this
 
 -- Display
 opt.number = true
@@ -194,7 +180,7 @@ opt.scrolloff = 4
 opt.showmatch = true
 
 -- Motions
--- Treat dash separated words as a word text object
+--- Treat dash separated words as a word text object
 opt.iskeyword:prepend { "-" } 
 
 -- Window splits and buffers
@@ -254,13 +240,59 @@ g.netrw_altv = 1
 -- Terminal
 opt.termguicolors = true
 
--- Mappings
+-- Key Maps
+km.set("n", "<leader>a", function() harpoon:list():append() end)
+km.set("n", "<leader>c", function() harpoon:list():clear() end)
+km.set("n", "<leader>g", function() telescope:git_files() end)
+
+km.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+km.set("n", "<C-h>", function() harpoon:list():select(1) end)
+km.set("n", "<C-t>", function() harpoon:list():select(2) end)
+km.set("n", "<C-n>", function() harpoon:list():select(3) end)
+km.set("n", "<C-s>", function() harpoon:list():select(4) end)
+
+--- Toggle previous & next buffers stored within Harpoon list
+km.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+km.set("n", "<C-S-N>", function() harpoon:list():next() end)
+
+--- Terminal key maps
 km.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
--- Colors and themes
+-- Auto commands
+api.nvim_create_autocmd("VimResized", { command = "horizontal wincmd =" })
+
+--- Restore cursor position
+local ignore_filetype = { "gitcommit", "gitrebase" }
+local ignore_buftype = { "quickfix", "nofile", "help" }
+api.nvim_create_autocmd("BufReadPost", {
+  desc = "Restore cursor to last known position",
+  group = api.nvim_create_augroup("restore_cursor", { clear = true }),
+  callback = function()
+    if vim.tbl_contains(ignore_filetype, bo.filetype) then
+      return
+    end
+
+    if vim.tbl_contains(ignore_buftype, bo.buftype) then
+      return
+    end
+
+    local row, col = unpack(api.nvim_buf_get_mark(0, '"'))
+    
+    if row > 0 and row <= api.nvim_buf_line_count(0) then
+      api.nvim_win_set_cursor(0, { row, col })
+
+      if api.nvim_eval "foldclosed(\'.\')" ~= -1 then
+        api.nvim_input "zv"
+      end
+    end
+  end,
+})
+
+-- Themes
 local has_defaults = is_binary("defaults")
 
--- Check for macOS defaults
+--- Check for macOS defaults
 if has_defaults then
     local apple_interface_style = get_apple_interface_style()
 
