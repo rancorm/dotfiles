@@ -1,6 +1,6 @@
 return {	
   "projekt0n/github-nvim-theme",
-  init = function()
+  config = function()
     local function get_apple_interface_style()
 	local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
 	local result = handle:read("*a")

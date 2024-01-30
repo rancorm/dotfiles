@@ -7,7 +7,7 @@ return {
       "~/.config/*",
     },
   },
-  init = function()
+  config = function()
     -- Save the state of plugins in the session
     opt.sessionoptions:append("globals") 
   end,
@@ -17,5 +17,5 @@ return {
     { "Shatur/neovim-session-manager" },
   },
   lazy = false,
-  priority = 100,
+  priority = 100
 }

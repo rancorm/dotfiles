@@ -7,19 +7,21 @@ cmd, fn, opt = vim.cmd, vim.fn, vim.opt
 km, g, api = vim.keymap, vim.g, vim.api
 bo = vim.bo
 
-local neovim_version = vim.version()
+-- Neovim version check
+local nv_ver = vim.version()
 
-if neovim_version.major >= 0 and neovim_version.minor < 8 then
+if nv_ver.major >= 0 and nv_ver.minor < 8 then
     print(string.format("Config requires newer version of Neovim, current version is %d.%d.%d",
-	neovim_version.major,
-	neovim_version.minor,
-	neovim_version.patch))
+	nv_ver.major,
+	nv_ver.minor,
+	nv_ver.patch))
 
     return
 end
 
 -- Lazy package loader
 local lazypath = fn.stdpath("data") .. "/lazy/lazy.nvim"
+g.mapleader = " "
 
 if not vim.loop.fs_stat(lazypath) then
   fn.system({
@@ -34,8 +36,7 @@ end
 
 opt.rtp:prepend(lazypath)
 
-g.mapleader = " "
-
+-- Plugins
 require("lazy").setup("plugins")
 
 -- Functions
