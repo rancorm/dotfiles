@@ -6,9 +6,10 @@ return {
     "nvim-telescope/telescope.nvim"
   },
   config = function()
-    require("harpoon").setup({})
-
+    local harpoon = require("harpoon").setup({})
     local conf = require("telescope.config").values
+    local telescope = require("telescope.builtin")
+
     local function toggle_telescope(harpoon_files)
       local file_paths = {}
       

@@ -11,17 +11,17 @@ bo = vim.bo
 local nv_ver = vim.version()
 
 if nv_ver.major >= 0 and nv_ver.minor < 8 then
-    print(string.format("Config requires newer version of Neovim, current version is %d.%d.%d",
+  local msg = string.format("Config requires newer version of Neovim, current version is %d.%d.%d",
 	nv_ver.major,
 	nv_ver.minor,
-	nv_ver.patch))
-
-    return
+	nv_ver.patch)
+  print(msg)
+  return
 end
 
 -- Lazy package loader
 local lazypath = fn.stdpath("data") .. "/lazy/lazy.nvim"
-g.mapleader = " "
+-- g.mapleader = " "
 
 if not vim.loop.fs_stat(lazypath) then
   fn.system({
@@ -43,6 +43,7 @@ require("lazy").setup("plugins")
 local function get_apple_interface_style()
     local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
     local result = handle:read("*a")
+    
     handle:close()
 
     return result
@@ -163,6 +164,7 @@ api.nvim_create_autocmd("VimResized", { command = "horizontal wincmd =" })
 --- Restore cursor position
 local ignore_filetype = { "gitcommit", "gitrebase" }
 local ignore_buftype = { "quickfix", "nofile", "help" }
+
 api.nvim_create_autocmd("BufReadPost", {
   desc = "Restore cursor to last known position",
   group = api.nvim_create_augroup("restore_cursor", { clear = true }),
