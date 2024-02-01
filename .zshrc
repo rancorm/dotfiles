@@ -92,7 +92,7 @@ alias zhist="history -i"
 alias cdp="cd ~/Projects"
 alias dy="dig +short @dns.toys"
 alias nv="nvim"
-alias canopy="tree --dirsfirst -I __pycache__"
+alias canopy="tree -t --dirsfirst -I __pycache__"
 alias clearcreds="unset AWS_CREDENTIAL_EXPIRATION \
   AWS_ACCESS_KEY_ID \
   AWS_SECRET_ACCESS_KEY \

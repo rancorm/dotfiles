@@ -41,32 +41,35 @@ require("lazy").setup("plugins")
 
 -- Functions
 local function get_apple_interface_style()
-    local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
-    local result = handle:read("*a")
+  local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
+  local result = handle:read("*a")
     
-    handle:close()
+  handle:close()
 
-    return result
+  return result
 end
 
 local function is_binary(binary_name)
-    local command = "command -v " .. binary_name .. " > /dev/null 2>&1 || { echo >&2 'not found'; exit 1; }"
-    local exit_code = os.execute(command)
+  local command = "command -v " .. binary_name .. " > /dev/null 2>&1 || { echo >&2 'not found'; exit 1; }"
+  local exit_code = os.execute(command)
 
-    return exit_code == 0
+  return exit_code == 0
 end
 
 -- Indentation
 opt.tabstop = 8 -- Always 8 (see :h tabstop)
 opt.softtabstop = 2 -- What you expecting
 opt.shiftwidth = 2 -- What you expecting
+opt.smartindent = true
+opt.shiftround = true
 
 -- Display
-opt.number = true
-opt.relativenumber = true
+opt.termguicolors = true
+opt.number = true -- Line numbers
+opt.relativenumber = true -- Relative line numbers
 opt.numberwidth = 2
 -- opt.signcolumn = "yes:1"
-opt.laststatus = 2
+opt.laststatus = 2 
 opt.wrap = true
 opt.linebreak = true -- Wrap at word boundaries 
 opt.showmode = false
@@ -152,13 +155,30 @@ g.netrw_liststyle = 3
 g.netrw_browse_split = 2
 g.netrw_altv = 1
 
--- Terminal
-opt.termguicolors = true
-
 --- Terminal key maps
 km.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
--- Auto commands
+-- Utils
+opt.sessionoptions = {
+  "blank",
+  "buffers",
+  "curdir",
+  "folds",
+  "help",
+  "options",
+  "tabpages",
+  "winsize",
+  "resize",
+  "winpos",
+  "terminal"
+}
+
+opt.complete:prepend { "kspell" }
+opt.completeopt = { "menu", "menuone", "noselect" }
+opt.clipboard = "unnamedplus"
+opt.inccommand = "nosplit"
+
+--- Resize splits when resizing
 api.nvim_create_autocmd("VimResized", { command = "horizontal wincmd =" })
 
 --- Restore cursor position
@@ -186,6 +206,17 @@ api.nvim_create_autocmd("BufReadPost", {
         api.nvim_input "zv"
       end
     end
-  end,
+  end
 })
 
+--- Highlight yanked text briefly  
+api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight yanked text",
+  callback = function()
+    vim.highlight.on_yank {
+      higroup = "Search",
+      timeout = 250,
+      on_visual = true
+    }
+  end
+})
