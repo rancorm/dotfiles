@@ -47,6 +47,7 @@ function custom_plugin() {
 # Custom plugins: ~/.oh-my-zsh/custom/plugins/
 #
 plugins=(
+  autoenv
   screen
   xcode
   kubectl
@@ -81,6 +82,8 @@ export SSH_AUTH_SOCK=${HOME}/Library/Containers/com.maxgoedjen.Secretive.SecretA
 # Prevent session saving
 export SHELL_SESSIONS_DISABLE=1
 
+export AUTOENV_ENABLE_LEAVE=1
+
 # Disable paste highlighting
 zle_highlight=('paste:none')
 
@@ -101,6 +104,8 @@ alias clearcreds="unset AWS_CREDENTIAL_EXPIRATION \
   AWS_PROFILE \
   AWS_VAULT \
   && echo 'AWS credentials cleared'"
+alias k="kubectl"
+alias c="cargo"
 
 # Add user directories to PATH. Local bin, Brew, and Pip
 export PATH="/usr/local/sbin:${HOME}/bin:${HOME}/.cargo/bin:${HOME}/.local/bin:$PATH"

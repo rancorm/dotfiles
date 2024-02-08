@@ -21,7 +21,7 @@ end
 
 -- Lazy package loader
 local lazypath = fn.stdpath("data") .. "/lazy/lazy.nvim"
--- g.mapleader = " "
+g.mapleader = " "
 
 if not vim.loop.fs_stat(lazypath) then
   fn.system({
@@ -155,7 +155,28 @@ g.netrw_liststyle = 3
 g.netrw_browse_split = 2
 g.netrw_altv = 1
 
+-- Terminal
+opt.termguicolors = true
+
+-- Keymaps
+km.set("n", "<C-h>", "<C-w>h")
+km.set("n", "<C-j>", "<C-w>j")
+km.set("n", "<C-k>", "<C-w>k")
+km.set("n", "<C-l>", "<C-w>l")
+
+-- Toggle see whitespace characters like: eol, space, ...
+opt.lcs = "tab:>-,eol:$,nbsp:X,trail:#"
+km.set("n", "<F6>", ":set list!<cr>")
+
+km.set("n", "<S-H>", "_")
+km.set("n", "<S-L>", "$")
+
 --- Terminal key maps
+km.set("t", "<C-h>", "<cmd>wincmd h<CR>")
+km.set("t", "<C-j>", "<cmd>wincmd j<CR>")
+km.set("t", "<C-k>", "<cmd>wincmd k<CR>")
+km.set("t", "<C-l>", "<cmd>wincmd l<CR>")
+
 km.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
 -- Utils

@@ -6,5 +6,8 @@ return {
     "nvim-tree/nvim-web-devicons", 
     "MunifTanjim/nui.nvim",
     "3rd/image.nvim"
-  }
+  },
+  init = function()
+    km.set("n", "<leader>e", ":Neotree toggle<CR>")
+  end
 }
