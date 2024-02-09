@@ -1,0 +1,9 @@
+pollMillis=50
+delay=4
+focusDelay=4
+warpX=0.5
+warpY=0.1
+scale=2.5
+altTaskSwitcher=false
+disableKey="control"
+mouseDelta=0.1
