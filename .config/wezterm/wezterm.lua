@@ -1,20 +1,23 @@
 --
--- Jonathan's Wezterm configuration
+-- Jonathan's WezTerm configuration
 -- 
 -- https://wezterm.com/
 --
 local wt = require "wezterm"
+local os = require "os"
+local io = require "io"
+
+-- Aliases
 local act = wt.action
 local config = wt.config_builder()
 
-local light_scheme = "zenbones"
-local dark_scheme = "zenbones_dark"
-
--- config.term = "wezterm"
+local light_scheme = "Bamboo Light"
+local dark_scheme = "Bamboo"
 
 -- Fonts
 config.font = wt.font("0xProto Nerd Font Mono", { bold = false,  italic = false })
-config.font_size = 14.0
+config.font_size = 13.0
+config.harfbuzz_features = { 'zero' }
 
 -- Keys 
 config.scroll_to_bottom_on_input = true
@@ -41,7 +44,7 @@ config.macos_window_background_blur = 20
 -- Other
 config.show_tab_index_in_tab_bar = true
 config.use_resize_increments = true
-config.show_new_tab_button_in_tab_bar = false
+-- config.show_new_tab_button_in_tab_bar = false
 config.quote_dropped_files = "Posix"
 config.quit_when_all_windows_are_closed = false
 
