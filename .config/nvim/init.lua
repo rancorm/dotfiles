@@ -67,6 +67,8 @@ opt.shiftround = true
 opt.termguicolors = true
 opt.number = true -- Line numbers
 opt.relativenumber = true -- Relative line numbers
+--- Cursor line
+opt.cursorline = true -- Highlight current line
 opt.numberwidth = 2
 -- opt.signcolumn = "yes:1"
 opt.laststatus = 2 
@@ -83,10 +85,12 @@ opt.listchars = {
   nbsp = "␣",
   eol = "↲",
 }
+--- Disable background
+cmd([[highlight Normal guibg=NONE ctermbg=NONE]])
 
 -- Title
 opt.title = true
-opt.titlestring = "❐ %t"
+opt.titlestring = "%t"
 opt.titlelen = 70
 opt.titleold = "%{ fnamemodify(getcwd(), :t) }"
 

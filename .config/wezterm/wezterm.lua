@@ -11,8 +11,8 @@ local io = require "io"
 local act = wt.action
 local config = wt.config_builder()
 
-local light_scheme = "Bamboo Light"
-local dark_scheme = "Bamboo"
+local light_scheme = "Tokyo Night Day"
+local dark_scheme = "Tokyo Night"
 
 -- Fonts
 config.font = wt.font("0xProto Nerd Font Mono", { bold = false,  italic = false })

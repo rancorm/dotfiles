@@ -47,7 +47,6 @@ function custom_plugin() {
 # Custom plugins: ~/.oh-my-zsh/custom/plugins/
 #
 plugins=(
-  autoenv
   screen
   xcode
   kubectl
