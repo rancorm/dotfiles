@@ -1,11 +1,12 @@
 #
 # Jonathan Cormier's Git Configuration
 #
-# Email: jonathan@cormier.co
-#
 [user]
   name = Jonathan Cormier
   email = jonathan@cormier.co
+
+[interactive]
+  diffFilter = delta --color-only -s
 
 [alias]
   branchcommits = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'
@@ -24,7 +25,10 @@
 
 [delta]
   navigate = true
-  light = false 
+  line-numbers = true
+  zero-style = dim syntax # dim, plain, syntax
+  side-by-side = true
+  syntax-theme = OneHalfDark
 
 [init]
   defaultBranch = main
