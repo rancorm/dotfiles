@@ -12,30 +12,22 @@ currency: symbol
 watchlist:
   - ^GSPC
   - PLTR
-  - DTEA
   - BEP-UN.TO
   - BEPC.TO
   - BAM-A.TO
   - CCO.TO
   - MSFT
-  - MMED.NE
   - DIR-UN
   - D-UN
   - TFII.TO
-  - CMPS
-  - BRAX.CN
-  - CURA.CN
-  - CG.TO
-  - NUMI.V
   - BNS.TO
   - WRN.TO
+  - CS.TO
   - ATZ.TO
   - AQN.TO
-  - CYBN.NE
-  - ATAI
-  - FTRP.TO
-  - CRSP
-  - TRIP.CN
+  - HWKN
+  - EVGO
+  - NVDA
 
 #colors:
 #  text: "#005fff"

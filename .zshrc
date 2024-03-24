@@ -106,7 +106,7 @@ alias clearcreds="unset AWS_CREDENTIAL_EXPIRATION \
   && echo 'AWS credentials cleared'"
 alias k="kubectl"
 alias c="cargo"
-alias t="tree --dirsfirst --gitignore"
+alias t="tree --dirsfirst --gitignore -t -F"
 
 # Add user directories to PATH. Local bin, Brew, and Pip
 export PATH="/usr/local/sbin:${HOME}/bin:${HOME}/.cargo/bin:${HOME}/.local/bin:$PATH"

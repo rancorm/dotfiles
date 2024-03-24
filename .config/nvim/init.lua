@@ -162,14 +162,15 @@ g.netrw_altv = 1
 -- Terminal
 opt.termguicolors = true
 
+-- Toggle see whitespace characters like: eol, space, ...
+opt.lcs = "tab:>-,eol:$,nbsp:X,trail:#"
+
 -- Keymaps
 km.set("n", "<C-h>", "<C-w>h")
 km.set("n", "<C-j>", "<C-w>j")
 km.set("n", "<C-k>", "<C-w>k")
 km.set("n", "<C-l>", "<C-w>l")
 
--- Toggle see whitespace characters like: eol, space, ...
-opt.lcs = "tab:>-,eol:$,nbsp:X,trail:#"
 km.set("n", "<F6>", ":set list!<cr>")
 
 km.set("n", "<S-H>", "_")
@@ -182,6 +183,8 @@ km.set("t", "<C-k>", "<cmd>wincmd k<CR>")
 km.set("t", "<C-l>", "<cmd>wincmd l<CR>")
 
 km.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+
+km.set("n", "<leader>d", "diw")
 
 -- Utils
 opt.sessionoptions = {
