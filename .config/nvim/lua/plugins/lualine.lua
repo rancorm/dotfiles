@@ -4,7 +4,7 @@ return {
   init = function()
     require("lualine").setup {
       options = {
-	theme = "tokyonight",
+	theme = "rose-pine",
 	globalstatus = true,
 	extensions = {
 	  "neo-tree",

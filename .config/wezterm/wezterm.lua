@@ -11,8 +11,8 @@ local io = require "io"
 local act = wt.action
 local config = wt.config_builder()
 
-local light_scheme = "Tokyo Night Day"
-local dark_scheme = "Tokyo Night"
+local light_scheme = "rose-pine-dawn"
+local dark_scheme = "rose-pine-moon"
 
 -- Fonts
 config.font = wt.font("0xProto Nerd Font Mono", { bold = false,  italic = false })
@@ -36,6 +36,9 @@ config.dpi = 109.0
 config.window_decorations = "RESIZE"
 config.anti_alias_custom_block_glyphs = true
 config.window_background_opacity = 0.9
+config.colors = colors
+config.window_frame = window_frame
+
 --- macOS
 config.ui_key_cap_rendering = "AppleSymbols"
 config.native_macos_fullscreen_mode = true
