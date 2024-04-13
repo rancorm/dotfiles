@@ -22,6 +22,7 @@ end
 -- Lazy package loader
 local lazypath = fn.stdpath("data") .. "/lazy/lazy.nvim"
 g.mapleader = " "
+g.maplocalleader = " "
 
 if not vim.loop.fs_stat(lazypath) then
   fn.system({
@@ -65,8 +66,8 @@ opt.shiftround = true
 
 -- Display
 opt.termguicolors = true
-opt.number = true -- Line numbers
-opt.relativenumber = true -- Relative line numbers
+opt.number = true
+opt.relativenumber = true
 --- Cursor line
 opt.cursorline = true -- Highlight current line
 opt.numberwidth = 2
@@ -85,8 +86,6 @@ opt.listchars = {
   nbsp = "␣",
   eol = "↲",
 }
---- Disable background
-cmd([[highlight Normal guibg=NONE ctermbg=NONE]])
 
 -- Title
 opt.title = true
@@ -98,7 +97,7 @@ opt.titleold = "%{ fnamemodify(getcwd(), :t) }"
 opt.ignorecase = true
 opt.smartcase = true
 opt.wrapscan = true
-opt.scrolloff = 4
+opt.scrolloff = 10
 opt.showmatch = true
 
 -- Motions
@@ -206,6 +205,7 @@ opt.completeopt = { "menu", "menuone", "noselect" }
 opt.clipboard = "unnamedplus"
 opt.inccommand = "nosplit"
 
+-- Autocommands
 --- Resize splits when resizing
 api.nvim_create_autocmd("VimResized", { command = "horizontal wincmd =" })
 
@@ -248,3 +248,28 @@ api.nvim_create_autocmd("TextYankPost", {
     }
   end
 })
+
+-- Commands
+--- :Cgrep <pattern>
+function cgrep(pattern, glob)
+  local command_parts = {
+	  "rg",
+	  "--maxdepth",
+	  "1",
+	  "--vimgrep",
+	  pattern,
+	  (glob or ".")}
+  local command = table.concat(command_parts, " ")
+  local grep_open = io.popen(command, "r")
+  local result = grep_open:read("*all")
+
+  grep_open:close()
+  fn.setqflist({},
+    " ", {
+      title = "Search results",
+      lines = vim.split(result, "\n")
+    })
+  cmd("copen")
+end
+
+cmd("command! -nargs=? Cgrep :lua cgrep(<f-args>)")

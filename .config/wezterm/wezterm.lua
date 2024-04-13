@@ -16,7 +16,7 @@ local dark_scheme = "rose-pine-moon"
 
 -- Fonts
 config.font = wt.font("0xProto Nerd Font Mono", { bold = false,  italic = false })
-config.font_size = 13.0
+config.font_size = 10.0
 config.harfbuzz_features = { 'zero' }
 
 -- Keys 
@@ -31,13 +31,16 @@ config.mouse_wheel_scrolls_tabs = true
 -- GPU
 config.prefer_egl = true
 
+-- Behavior
+config.window_close_confirmation = "NeverPrompt"
+
 -- Appearance
-config.dpi = 109.0 
+config.dpi = 144.0 
 config.window_decorations = "RESIZE"
 config.anti_alias_custom_block_glyphs = true
 config.window_background_opacity = 0.9
-config.colors = colors
-config.window_frame = window_frame
+config.initial_cols = 100
+config.initial_rows = 30
 
 --- macOS
 config.ui_key_cap_rendering = "AppleSymbols"
