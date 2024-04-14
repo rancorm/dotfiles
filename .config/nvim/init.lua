@@ -250,26 +250,42 @@ api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Commands
---- :Cgrep <pattern>
-function cgrep(pattern, glob)
-  local command_parts = {
-	  "rg",
-	  "--maxdepth",
-	  "1",
-	  "--vimgrep",
-	  pattern,
-	  (glob or ".")}
-  local command = table.concat(command_parts, " ")
-  local grep_open = io.popen(command, "r")
-  local result = grep_open:read("*all")
 
+--- Search recursively with ripgrep
+-- @param pattern string
+-- @param depth number
+function cgrep(pattern, depth)
+  local grep_parts = { "rg", }
+
+  if depth then
+    table.insert(grep_parts, "--max-depth")
+    table.insert(grep_parts, tostring(depth))
+  end
+
+  table.insert(grep_parts, "--vimgrep")
+  table.insert(grep_parts, pattern)
+  table.insert(grep_parts, ".")
+ 
+  local grep_cmd = table.concat(grep_parts, " ")
+  local grep_open = io.popen(grep_cmd, "r")
+  local result = grep_open:read("*all")
+  local lines = {}
+  
   grep_open:close()
+  
+  for line in string.gmatch(result, "(.-)\n") do
+    table.insert(lines, line)
+  end
+  
   fn.setqflist({},
     " ", {
       title = "Search results",
-      lines = vim.split(result, "\n")
-    })
+      lines = lines,
+    }
+  )
+
   cmd("copen")
 end
 
-cmd("command! -nargs=? Cgrep :lua cgrep(<f-args>)")
+cmd("command! -nargs=* Cgrep :lua cgrep(<f-args>)")
+cmd("command! -nargs=* Cg :Cgrep <args>")
