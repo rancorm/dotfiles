@@ -76,4 +76,9 @@ wt.on("window-config-reloaded", function(window, pane)
   end
 end)
 
+config.hyperlink_rules = wt.default_hyperlink_rules()
+config.hyperlink_rules[1].regex = "\\((\\w+://\\S+)\\)"
+config.hyperlink_rules[1].format = "$1"
+config.hyperlink_rules[1].highlight = 0
+
 return config

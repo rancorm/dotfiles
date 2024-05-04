@@ -7,7 +7,7 @@ return {
     "MunifTanjim/nui.nvim",
     "3rd/image.nvim"
   },
-  init = function()
+  config = function()
     km.set("n", "<leader>e", ":Neotree toggle<CR>", { silent = true })
   end
 }

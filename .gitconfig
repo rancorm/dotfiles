@@ -4,6 +4,13 @@
 [user]
   name = Jonathan Cormier
   email = jonathan@cormier.co
+  signingkey = 34CD09BD8A253BB518746C3E3C15099390069BAF 
+
+[commit]
+  gpgsign = true
+
+[status]
+  short = true
 
 [interactive]
   diffFilter = delta --color-only -s

@@ -7,7 +7,7 @@ return {
     transparent = true,
     terminal_colors = true,
   },
-  init = function()
+  config = function()
     cmd([[colorscheme tokyonight]])
   end
 }

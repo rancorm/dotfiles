@@ -3,7 +3,7 @@ return {
   lazy = false,
   priority = 1000,
   name = "rose-pine",
-  init = function()
+  config = function()
     require("rose-pine").setup({
       styles = {
 	transparency = true

@@ -4,9 +4,9 @@ return {
     "nvim-telescope/telescope.nvim",
     "nvim-lua/plenary.nvim"
   },
-  init = function()
+  config = function()
     require("telescope").load_extension("lazygit")
 
-    km.set("n", "<leader>gg", "<cmd>LazyGit<CR>", { noremap = true, silent = true })
+    km.set("n", "<leader>lg", "<cmd>LazyGit<CR>", { noremap = true, silent = true })
   end
 }
