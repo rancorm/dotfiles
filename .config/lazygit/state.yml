@@ -1,8 +1,10 @@
 lastupdatecheck: 0
 recentrepos:
-- /Users/jonathan/Projects/cryptxt
+    - /Users/jonathan/dotfiles
+    - /Users/jonathan/Projects/txtomatic
+    - /Users/jonathan/Projects/cryptxt
 startuppopupversion: 5
-lastversion: 0.41.0
+lastversion: 0.42.0
 customcommandshistory: []
 hidecommandlog: true
 ignorewhitespaceindiffview: false

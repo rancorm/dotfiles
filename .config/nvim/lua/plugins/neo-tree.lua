@@ -8,6 +8,6 @@ return {
     "3rd/image.nvim"
   },
   config = function()
-    km.set("n", "<leader>e", ":Neotree toggle<CR>", { silent = true })
+    km.set("n", "<leader>ee", ":Neotree toggle<CR>", { silent = true })
   end
 }

@@ -6,6 +6,12 @@
   email = jonathan@cormier.co
   signingkey = 34CD09BD8A253BB518746C3E3C15099390069BAF 
 
+[column]
+  ui = auto
+
+[branch]
+  sort = -committerdate
+
 [commit]
   gpgsign = true
 
@@ -24,6 +30,7 @@
   squash = "!f() { git rebase -i HEAD~$1; }; f" 
   fixup = "!f() { git commit --fixup HEAD~1; }; f"
   staash = "stash --all"
+  littleblame = "!f() { git blame -w -C -C -C -C -L $1 $2; }; f"
 
 [filter "lfs"]
   process = git-lfs filter-process

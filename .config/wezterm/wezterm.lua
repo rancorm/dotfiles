@@ -16,7 +16,7 @@ local dark_scheme = "rose-pine-moon"
 
 -- Fonts
 config.font = wt.font("0xProto Nerd Font Mono", { bold = false,  italic = false })
-config.font_size = 10.0
+config.font_size = 12.0
 config.harfbuzz_features = { 'zero' }
 
 -- Keys 
@@ -50,7 +50,7 @@ config.macos_window_background_blur = 20
 -- Other
 config.show_tab_index_in_tab_bar = true
 config.use_resize_increments = true
--- config.show_new_tab_button_in_tab_bar = false
+config.show_new_tab_button_in_tab_bar = false
 config.quote_dropped_files = "Posix"
 config.quit_when_all_windows_are_closed = false
 

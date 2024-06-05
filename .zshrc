@@ -14,7 +14,10 @@
 export ZSH=$HOME"/.oh-my-zsh"
 
 # Theme
-ZSH_THEME="clean"
+ZSH_THEME="nothing"
+
+NT_HIDE_EXIT_CODE=1
+NT_HIDE_COUNT=1
 
 # History command date format.
 # You can set one of the optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
