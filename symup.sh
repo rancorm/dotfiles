@@ -45,35 +45,35 @@ do
     fi
 
     # Check for ~/.config directory
-    if [ "$EBASE" = ".config" ]; then
-	echo -e "\x1B[92m$ETARGET is a directory. Symlinking subdirectories.\x1B[39m"
+    if [ -d "$EBASE" ]; then
+	echo -e "\x1B[91m$ETARGET is a directory. Symlinking subdirectories.\x1B[39m"
 	
 	# Loop through subdirectories of ~/.config
 	for SUBENTRY in "$ENTRY"/*
 	do
 	    SUBBASE=$(basename "$SUBENTRY")
-	    SUBTARGET="$HOME/.config/$SUBBASE"
-	    SUBDOTFILE="../$DOTFILES/.config/$SUBBASE"
+	    SUBTARGET="$HOME/$EBASE/$SUBBASE"
+	    SUBDOTFILE="$HOME/$DOTFILES/$EBASE/$SUBBASE"
 
 	    # Check for existing symlink, create and/or update symlink in home directory
 	    if [[ -h "$SUBTARGET" && ($(readlink "$SUBTARGET") == "$SUBDOTFILE") ]]; then
-		echo -e "\x1B[92m$SUBTARGET is linked to your dotfiles.\x1B[39m"
+		echo -e "\x1B[90m$SUBTARGET is linked to your dotfiles.\x1B[39m"
 	    elif [[ -a "$SUBTARGET" ]]; then
 		read -p "$SUBTARGET exists and differs from your dotfile. Override? [yN] " REPLY
 
 		# Check answer
 		if [[ "$REPLY" =~ ^([yY]*)$ ]]; then
-		    symlink "$SUBDOTFILE" "$HOME/.config"
+		    symlink "$SUBDOTFILE" "$HOME/$EBASE"
 		fi
 	    else
 		echo -e "\x1B[92m$SUBTARGET does not exist. Linking to its dotfile.\x1B[39m"
-		symlink "$SUBDOTFILE" "$HOME/.config"
+		symlink "$SUBDOTFILE" "$HOME/$EBASE"
 	    fi
 	done
     else
 	# Check for existing symlink, create and/or update symlink in home directory
 	if [[ -h "$ETARGET" && ($(readlink "$ETARGET") == "$EDOTFILE") ]]; then
-	    echo -e "\x1B[92m$ETARGET is linked to your dotfiles.\x1B[39m"
+	    echo -e "\x1B[90m$ETARGET is linked to your dotfiles.\x1B[39m"
 	elif [[ -f "$ETARGET" && $(checksum "$ETARGET" | awk '{print $2}') == $(checksum "$EBASE" | awk '{print $2}') ]]; then
 	    echo -e "\x1B[93m$ETARGET exists and was identical to your dotfile. Overriding with symlink.\x1B[39m"
 	    symlink "$EDOTFILE" "$HOME"

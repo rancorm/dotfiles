@@ -15,8 +15,9 @@ local light_scheme = "rose-pine-dawn"
 local dark_scheme = "rose-pine-moon"
 
 -- Fonts
-config.font = wt.font("0xProto Nerd Font Mono", { bold = false,  italic = false })
-config.font_size = 12.0
+config.font = wt.font("0xProto Nerd Font", { bold = false, italic = false })
+config.font_size = 9.0
+config.line_height = 1.1
 config.harfbuzz_features = { 'zero' }
 
 -- Keys 
@@ -46,6 +47,14 @@ config.initial_rows = 30
 config.ui_key_cap_rendering = "AppleSymbols"
 config.native_macos_fullscreen_mode = true
 config.macos_window_background_blur = 20
+
+-- Key Bindings
+keys = {
+  { key = "k", mods = "ALT", action = act.ActivateTabRelative(1) },
+  { key = "j", mods = "ALT", action = act.ActivateTabRelative(-1) }
+}
+
+config.keys = keys
 
 -- Other
 config.show_tab_index_in_tab_bar = true
