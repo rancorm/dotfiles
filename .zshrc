@@ -66,6 +66,7 @@ plugins=(
   gh
   pip
   virtualenv
+  azure
 )
 
 plugins+=($(custom_plugin "zsh-completions"))
