@@ -40,23 +40,6 @@ opt.rtp:prepend(lazypath)
 -- Plugins
 require("lazy").setup("plugins")
 
--- Functions
-local function get_apple_interface_style()
-  local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
-  local result = handle:read("*a")
-    
-  handle:close()
-
-  return result
-end
-
-local function is_binary(binary_name)
-  local command = "command -v " .. binary_name .. " > /dev/null 2>&1 || { echo >&2 'not found'; exit 1; }"
-  local exit_code = os.execute(command)
-
-  return exit_code == 0
-end
-
 -- Indentation
 opt.tabstop = 8 -- Always 8 (see :h tabstop)
 opt.softtabstop = 2 -- What you expecting
@@ -72,7 +55,7 @@ opt.relativenumber = true
 opt.cursorline = true -- Highlight current line
 opt.numberwidth = 2
 -- opt.signcolumn = "yes:1"
-opt.laststatus = 2 
+opt.laststatus = 2
 opt.wrap = true
 opt.linebreak = true -- Wrap at word boundaries 
 opt.showmode = false
@@ -102,7 +85,7 @@ opt.showmatch = true
 
 -- Motions
 --- Treat dash separated words as a word text object
-opt.iskeyword:prepend { "-" } 
+opt.iskeyword:prepend { "-" }
 
 -- Window splits and buffers
 opt.hidden = true
@@ -165,6 +148,7 @@ opt.termguicolors = true
 opt.lcs = "tab:>-,eol:$,nbsp:X,trail:#"
 
 -- Keymaps
+--- Window key maps
 km.set("n", "<C-h>", "<C-w>h")
 km.set("n", "<C-j>", "<C-w>j")
 km.set("n", "<C-k>", "<C-w>k")
@@ -226,7 +210,7 @@ api.nvim_create_autocmd("BufReadPost", {
     end
 
     local row, col = unpack(api.nvim_buf_get_mark(0, '"'))
-    
+
     if row > 0 and row <= api.nvim_buf_line_count(0) then
       api.nvim_win_set_cursor(0, { row, col })
 
@@ -252,8 +236,8 @@ api.nvim_create_autocmd("TextYankPost", {
 -- Commands
 
 --- Search recursively with ripgrep
--- @param pattern string
--- @param depth number
+--- @param pattern string
+--- @param depth number
 function cgrep(pattern, depth)
   local grep_parts = { "rg", }
 
@@ -265,18 +249,18 @@ function cgrep(pattern, depth)
   table.insert(grep_parts, "--vimgrep")
   table.insert(grep_parts, pattern)
   table.insert(grep_parts, ".")
- 
+
   local grep_cmd = table.concat(grep_parts, " ")
   local grep_open = io.popen(grep_cmd, "r")
   local result = grep_open:read("*all")
   local lines = {}
-  
+
   grep_open:close()
-  
+
   for line in string.gmatch(result, "(.-)\n") do
     table.insert(lines, line)
   end
-  
+
   fn.setqflist({},
     " ", {
       title = "Search results",

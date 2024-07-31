@@ -2,7 +2,7 @@ interface: en0
 dns-resolution: no
 port-resolution: no
 show-bars: yes
-promiscous: yes
+promiscuous: yes
 port-display: destination-only
 use-bytes: yes
 log-scale: yes
