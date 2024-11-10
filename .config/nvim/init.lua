@@ -169,6 +169,10 @@ km.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
 km.set("n", "<leader>d", "diw")
 
+-- Visual mode key maps
+km.set("v", "J", ":m '>+1<CR>gv=gv")
+km.set("v", "K", ":m '<-2<CR>gv=gv")
+
 -- Utils
 opt.sessionoptions = {
   "blank",

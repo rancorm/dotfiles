@@ -41,9 +41,10 @@
 [delta]
   navigate = true
   line-numbers = true
-  zero-style = dim syntax # dim, plain, syntax
+  #zero-style = dim syntax # dim, plain, syntax
   side-by-side = true
-  syntax-theme = OneHalfDark
+  # syntax-theme = OneHalfDark
+  true-color = always
 
 [init]
   defaultBranch = main
@@ -67,4 +68,3 @@
 
 [rerere]
   enabled = true
-
