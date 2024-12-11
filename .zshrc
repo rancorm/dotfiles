@@ -84,15 +84,12 @@ export SSH_AUTH_SOCK=${HOME}/Library/Containers/com.maxgoedjen.Secretive.SecretA
 #
 # Prevent session saving
 export SHELL_SESSIONS_DISABLE=1
-
 export AUTOENV_ENABLE_LEAVE=1
 
 # Disable paste highlighting
 zle_highlight=('paste:none')
 
 # Command aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tf="terraform"
 alias zhist="history -i"
 alias cdp="cd ~/Projects"
@@ -113,10 +110,14 @@ alias c="cargo"
 alias t="tree --dirsfirst --gitignore -t -F"
 
 # Add user directories to PATH. Local bin, Brew, and Pip
-export PATH="/usr/local/sbin:${HOME}/bin:${HOME}/.cargo/bin:${HOME}/.local/bin:$PATH"
+export PATH="/usr/local/sbin:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
+
+# Brew Python
+BREW_PREFIX=$(brew --prefix python)
+export PATH="$BREW_PREFIX/libexec/bin":$PATH
 
 # Go - https://golang.org/doc/install
-export PATH="${HOME}/go/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 # Krew - https://krew.sigs.k8s.io/docs/user-guide/setup/install/
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
@@ -128,23 +129,10 @@ export PATH="/opt/ghidra:$PATH"
 export MODULAR_HOME="/Users/jonathan/.modular"
 export PATH="/Users/jonathan/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
 
+# Mason
+export PATH="$HOME/.local/share/nvim/mason/bin":$PATH
+
 # Zsh prompt (if found)
 if [[ -f ~/.zsh_prompt ]]; then
   . ~/.zsh_prompt
 fi
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-

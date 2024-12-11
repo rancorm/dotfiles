@@ -30,6 +30,7 @@ return {
 	      "rust_analyzer",
 	      "gopls",
 	      "pylsp",
+	      "pyright"
 	  },
 	  handlers = {
 	      function(server_name) -- default handler (optional)
@@ -37,7 +38,35 @@ return {
 		      capabilities = capabilities
 		  }
 	      end,
-
+	      pylsp = function()
+		  local lspconfig = require("lspconfig")
+		  lspconfig.pylsp.setup({
+		      root_dir = lspconfig.util.root_pattern(".git", "pyproject.toml", "setup.py", ".pylspconfig.json"),
+		      settings = {
+			  pylsp = {
+			      plugins = {
+				  pyright = {
+				      enabled = true,
+			              analysis = {
+					typeCheckingMode = "strict",  -- Will warn about missing type hints
+					reportMissingTypeStubs = true,
+					reportUnknownParameterType = true,
+					reportUnknownVariableType = true,
+					reportUnknownMemberType = true
+				      }
+				  },
+				  rope_completion = {
+				      enabled = true
+				  },
+				  jedi_completion = {
+				      enabled = true,
+				      fuzzy = true
+				  }
+			      }
+			  }
+		      }
+		  })
+	      end,
 	      zls = function()
 		  local lspconfig = require("lspconfig")
 		  lspconfig.zls.setup({
@@ -52,7 +81,6 @@ return {
 		  })
 		  vim.g.zig_fmt_parse_errors = 0
 		  vim.g.zig_fmt_autosave = 0
-
 	      end,
 	      ["lua_ls"] = function()
 		  local lspconfig = require("lspconfig")

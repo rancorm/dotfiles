@@ -31,6 +31,17 @@
   fixup = "!f() { git commit --fixup HEAD~1; }; f"
   staash = "stash --all"
   littleblame = "!f() { git blame -w -C -C -C -C -L $1 $2; }; f"
+  nuke = "!f() { \
+    if [ -z $1 ]; then exit; fi; \
+    read -p \"Permanently remove $1 from ALL branches? (y/N)\" confirm; \
+    if [[ $confirm == [yY] ]]; then \
+      echo \"Starting removal process...\"; \
+      git filter-branch -f --index-filter \"git rm --cached --ignore-unmatched $1\" --all && \
+      echo \"File has been removed from all branches.\"; \
+    else \
+      echo \"Operation cancelled\"; \
+    fi; \
+  }; f"
 
 [filter "lfs"]
   process = git-lfs filter-process
@@ -42,7 +53,7 @@
   navigate = true
   line-numbers = true
   #zero-style = dim syntax # dim, plain, syntax
-  side-by-side = true
+  #side-by-side = true
   # syntax-theme = OneHalfDark
   true-color = always
 
