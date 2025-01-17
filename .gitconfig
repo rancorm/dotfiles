@@ -6,72 +6,38 @@
   email = jonathan@cormier.co
   signingkey = 34CD09BD8A253BB518746C3E3C15099390069BAF 
 
+# UI and display
 [column]
   ui = auto
-
-[branch]
-  sort = -committerdate
-
-[commit]
-  gpgsign = true
-
-[status]
-  short = true
-
-[interactive]
-  diffFilter = delta --color-only -s
-
-[alias]
-  branchcommits = "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'"
-  age = "!git --no-pager log --follow --format=%ad --date relative -1"
-  update-repos = "!update-repos.sh"
-  reftime = "!git --no-pager log -1 --format="%cd" --date=relative"
-  whereami = "rev-parse HEAD"
-  squash = "!f() { git rebase -i HEAD~$1; }; f" 
-  fixup = "!f() { git commit --fixup HEAD~1; }; f"
-  staash = "stash --all"
-  littleblame = "!f() { git blame -w -C -C -C -C -L $1 $2; }; f"
-  nuke = "!f() { \
-    if [ -z $1 ]; then exit; fi; \
-    read -p \"Permanently remove $1 from ALL branches? (y/N)\" confirm; \
-    if [[ $confirm == [yY] ]]; then \
-      echo \"Starting removal process...\"; \
-      git filter-branch -f --index-filter \"git rm --cached --ignore-unmatched $1\" --all && \
-      echo \"File has been removed from all branches.\"; \
-    else \
-      echo \"Operation cancelled\"; \
-    fi; \
-  }; f"
-
-[filter "lfs"]
-  process = git-lfs filter-process
-  required = true
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
 
 [delta]
   navigate = true
   line-numbers = true
-  #zero-style = dim syntax # dim, plain, syntax
-  #side-by-side = true
-  # syntax-theme = OneHalfDark
   true-color = always
 
-[init]
-  defaultBranch = main
-
-[merge]
-  conflictStyle = zdiff3 
+[color]
+  ui = auto
 
 [diff]
   colorMoved = default
 
-[sequence]
-  editor = interactive-rebase-tool
+[status]
+  short = true
 
-[core]
-  editor = nvim
-  pager = delta
+# Workflow and operations
+[branch]
+  # Sort branches by commit date (newest first).
+  sort = -committerdate
+
+[pull]
+  # Enables rebasing by default when pulling changes.
+  rebase = true
+
+[merge]
+  conflictStyle = zdiff3 
+
+[commit]
+  gpgsign = true
 
 [rebase]
   autosquash = true
@@ -79,3 +45,48 @@
 
 [rerere]
   enabled = true
+
+[init]
+  defaultBranch = main
+
+# Editor and tools
+[core]
+  editor = nvim
+  pager = delta
+
+[sequence]
+  editor = interactive-rebase-tool
+
+# Aliases
+[alias]
+  branchcommits = "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'"
+  age = "!git --no-pager log --follow --format="%ad" --date relative -1"
+  update-repos = "!update-repos.sh"
+  reftime = "!git --no-pager log -1 --format="%cd" --date=relative"
+  whereami = "rev-parse HEAD"
+  squash = "!f() { if [ -z \"$1\" ]; then echo 'Usage: git squash <number-of-commits>'; exit 1; fi; git rebase -i HEAD~$1; }; f"
+  fixup = "!f() { git commit --fixup HEAD~1; }; f"
+  staash = "stash --all"
+  littleblame = "!f() { if [ $# -ne 2 ]; then echo 'Usage: git littleblame <line-range> <file>'; exit 1; fi; git blame -w -C -C -C -C -L $1 $2; }; f"
+  nuke = "!f() { \
+    if [ -z \"$1\" ]; then exit; fi; \
+    read -p \"Permanently remove $1 from ALL branches? (y/N)\" confirm; \
+    if [[ $confirm == [yY] ]]; then \
+      echo \"Starting removal process...\"; \
+      git filter-branch -f --index-filter \"git rm --cached --ignore-unmatched \"$1\"\" --all && \
+      echo \"File has been removed from all branches.\"; \
+    else \
+      echo \"Operation cancelled\"; \
+    fi; \
+  }; f"
+
+# File handling
+[filter "lfs"]
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+
+# Misc.
+[interactive]
+  diffFilter = delta --color-only -s
