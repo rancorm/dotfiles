@@ -16,7 +16,7 @@ local dark_scheme = "rose-pine-moon"
 
 -- Fonts
 config.font = wt.font("0xProto Nerd Font", { bold = false, italic = false })
-config.font_size = 9.0
+config.font_size = 10.0
 config.line_height = 1.1
 config.harfbuzz_features = { 'zero' }
 
@@ -36,12 +36,12 @@ config.prefer_egl = true
 config.window_close_confirmation = "NeverPrompt"
 
 -- Appearance
-config.dpi = 144.0 
+config.dpi = 144.0
 config.window_decorations = "RESIZE"
 config.anti_alias_custom_block_glyphs = true
 config.window_background_opacity = 0.9
-config.initial_cols = 100
-config.initial_rows = 30
+config.initial_cols = 120
+config.initial_rows = 40
 
 --- macOS
 config.ui_key_cap_rendering = "AppleSymbols"
@@ -49,7 +49,7 @@ config.native_macos_fullscreen_mode = true
 config.macos_window_background_blur = 20
 
 -- Key Bindings
-keys = {
+local keys = {
   { key = "k", mods = "ALT", action = act.ActivateTabRelative(1) },
   { key = "j", mods = "ALT", action = act.ActivateTabRelative(-1) }
 }
@@ -64,7 +64,7 @@ config.quote_dropped_files = "Posix"
 config.quit_when_all_windows_are_closed = false
 
 -- Here be functions
-function scheme_for_appearance(appearance)
+local function scheme_for_appearance(appearance)
   if appearance:find("Dark") then
     return dark_scheme
   else
@@ -73,14 +73,14 @@ function scheme_for_appearance(appearance)
 end
 
 -- Events
-wt.on("window-config-reloaded", function(window, pane)
+wt.on("window-config-reloaded", function(window, _)
   local overrides = window:get_config_overrides() or {}
   local appearance = window:get_appearance()
   local scheme = scheme_for_appearance(appearance)
-  
+
   if overrides.color_scheme ~= scheme then
     overrides.color_scheme = scheme
-    
+
     window:set_config_overrides(overrides)
   end
 end)
