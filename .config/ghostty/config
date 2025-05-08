@@ -1,0 +1,23 @@
+# Jonathan's configuration file for Ghostty.
+
+auto-update = off
+
+theme = "light:github,dark:github dark"
+
+font-size = 18
+font-family = "0xProto Nerd Font"
+
+background-blur = true
+background-opacity = 0.80
+
+# macOS
+macos-titlebar-proxy-icon = hidden
+macos-icon = retro
+macos-auto-secure-input = true
+
+window-width = 80
+window-height = 40
+
+# Quick terminal
+quick-terminal-position = bottom
+keybind = global:cmd+grave_accent=toggle_quick_terminal
