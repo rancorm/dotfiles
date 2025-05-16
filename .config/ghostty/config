@@ -7,6 +7,19 @@ theme = "light:github,dark:github dark"
 font-size = 18
 font-family = "0xProto Nerd Font"
 
+# Mouse
+mouse-hide-while-typing = true
+
+# Cursor
+cursor-style = block
+cursor-color = green4
+cursor-style-blink = true
+cursor-opacity = 0.75
+
+# Shell Integration
+shell-integration-features = no-cursor
+
+# Background
 background-blur = true
 background-opacity = 0.80
 
@@ -15,9 +28,12 @@ macos-titlebar-proxy-icon = hidden
 macos-icon = retro
 macos-auto-secure-input = true
 
-window-width = 80
-window-height = 40
+# Window
+window-width = 90
+window-height = 50
 
-# Quick terminal
+# Quake style quick terminal
 quick-terminal-position = bottom
 keybind = global:cmd+grave_accent=toggle_quick_terminal
+
+bold-is-bright = true
