@@ -79,6 +79,7 @@
       echo \"Operation cancelled\"; \
     fi; \
   }; f"
+  pending = "log --branches --not --remotes"
 
 # File handling
 [filter "lfs"]
