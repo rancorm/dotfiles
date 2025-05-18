@@ -4,8 +4,8 @@ Dot files (.zshrc, .gitconfig, etc.)
 
 ## Directories
 
-- [.config](#.config) - Top level config directory (gh, ghostty, nvim, etc.)
-- [.azure](#.azure) - Top level config for Azure configs
+- [.config](#config) - Top level config directory (gh, ghostty, nvim, etc.)
+- [.azure](#azure) - Top level config for Azure configs
 
 ## Configs
 
