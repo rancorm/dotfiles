@@ -80,6 +80,7 @@
     fi; \
   }; f"
   pending = "log --branches --not --remotes"
+  deleted = "diff --name-only --diff-filter=D"
 
 # File handling
 [filter "lfs"]
