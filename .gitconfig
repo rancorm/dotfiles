@@ -1,6 +1,9 @@
 #
 # Jonathan Cormier's Git Configuration
 #
+[include]
+  path = ~/.gitconfig.aliases
+
 [user]
   name = Jonathan Cormier
   email = jonathan@cormier.co
@@ -56,31 +59,6 @@
 
 [sequence]
   editor = interactive-rebase-tool
-
-# Aliases
-[alias]
-  branchcommits = "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:short)%(color:reset))'"
-  age = "!git --no-pager log --follow --format="%ad" --date relative -1"
-  update-repos = "!update-repos.sh"
-  reftime = "!git --no-pager log -1 --format="%cd" --date=relative"
-  whereami = "rev-parse HEAD"
-  squash = "!f() { if [ -z \"$1\" ]; then echo 'Usage: git squash <number-of-commits>'; exit 1; fi; git rebase -i HEAD~$1; }; f"
-  fixup = "!f() { git commit --fixup HEAD~1; }; f"
-  staash = "stash --all"
-  littleblame = "!f() { if [ $# -ne 2 ]; then echo 'Usage: git littleblame <line-range> <file>'; exit 1; fi; git blame -w -C -C -C -C -L $1 $2; }; f"
-  nuke = "!f() { \
-    if [ -z \"$1\" ]; then exit; fi; \
-    read -p \"Permanently remove $1 from ALL branches? (y/N)\" confirm; \
-    if [[ $confirm == [yY] ]]; then \
-      echo \"Starting removal process...\"; \
-      git filter-branch -f --index-filter \"git rm --cached --ignore-unmatched \"$1\"\" --all && \
-      echo \"File has been removed from all branches.\"; \
-    else \
-      echo \"Operation cancelled\"; \
-    fi; \
-  }; f"
-  pending = "log --branches --not --remotes"
-  deleted = "diff --name-only --diff-filter=D"
 
 # File handling
 [filter "lfs"]
