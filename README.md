@@ -11,15 +11,16 @@ Dot files (.zshrc, .gitconfig, etc.)
 
 - [.digrc](.digrc) - [https://en.wikipedia.org/wiki/Dig_(command)](dig) BIND dig config
 - [.zshrc](.zshrc) - Z shell config
-- [.gitconfig](.gitconfig) - Git command config (alias, options, etc.)
+- [.gitconfig](.gitconfig) - Git command config (options, etc.)
+- [.gitconfig.aliases](.gitconfig.aliases) - Git aliases
 
-### .config
+### .config/
 
 - [ghostty/config](.config/ghostty/config) - Ghostty config
 - [gh/config.yml](.config/gh/config.yml) - GitHub CLI config
 - [lazygit/config.yml](.config/lazygit/config.yml) - lazygit config
 
-### .azure
+### .azure/
 
 - [config](.azure/config) - Azure CLI config
 
