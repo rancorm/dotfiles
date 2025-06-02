@@ -60,8 +60,6 @@ plugins=(
   git
   macos
   brew
-  docker
-  docker-compose
   aws
   gh
   pip
@@ -74,17 +72,6 @@ plugins+=($(custom_plugin "zsh-autosuggestions"))
 plugins+=($(custom_plugin "zsh-syntax-highlighting"))
 
 source $ZSH/oh-my-zsh.sh
-
-## App intergrations
-#
-# Secretive - SSH agent
-export SSH_AUTH_SOCK=${HOME}/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
-
-## User configuration
-#
-# Prevent session saving
-export SHELL_SESSIONS_DISABLE=1
-export AUTOENV_ENABLE_LEAVE=1
 
 # Disable paste highlighting
 zle_highlight=('paste:none')
@@ -109,12 +96,30 @@ alias k="kubectl"
 alias c="cargo"
 alias t="tree --dirsfirst --gitignore -t -F"
 
+## App intergrations
+#
+# Bitwarden SSH agent
+export SSH_AUTH_SOCK=${HOME}/.bitwarden-ssh-agent.sock
+
+## User configuration
+#
+# Prevent session saving
+export SHELL_SESSIONS_DISABLE=1
+export AUTOENV_ENABLE_LEAVE=1
+
+# GitHub CLI glamour style
+export GLAMOUR_STYLE="tokyo-night"
+
+## Path
+#
 # Add user directories to PATH. Local bin, Brew, and Pip
 export PATH="/usr/local/sbin:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 
 # Brew Python
-BREW_PREFIX=$(brew --prefix python)
-export PATH="$BREW_PREFIX/libexec/bin":$PATH
+if command -v brew &> /dev/null; then
+  BREW_PREFIX=$(brew --prefix python)
+  export PATH="$BREW_PREFIX/libexec/bin":$PATH
+fi
 
 # Go - https://golang.org/doc/install
 export PATH="$HOME/go/bin:$PATH"

@@ -1,6 +1,6 @@
-# Dot Files
+# Dotfiles
 
-Dot files (.zshrc, .gitconfig, etc.)
+Dot configuration files (.zshrc, .gitconfig, etc.)
 
 ## Directories
 
@@ -9,20 +9,22 @@ Dot files (.zshrc, .gitconfig, etc.)
 
 ## Configs
 
-- [.digrc](.digrc) - [https://en.wikipedia.org/wiki/Dig_(command)](dig) BIND dig config
-- [.zshrc](.zshrc) - Z shell config
-- [.gitconfig](.gitconfig) - Git command config (options, etc.)
+- [.digrc](.digrc) - [https://en.wikipedia.org/wiki/Dig_(command)](dig) BIND dig
+- [.zshrc](.zshrc) - Z shell
+- [.gitconfig](.gitconfig) - Git command (options, etc.)
 - [.gitconfig.aliases](.gitconfig.aliases) - Git aliases
 
 ### .config/
 
-- [ghostty/config](.config/ghostty/config) - Ghostty config
-- [gh/config.yml](.config/gh/config.yml) - GitHub CLI config
-- [lazygit/config.yml](.config/lazygit/config.yml) - lazygit config
+- [ghostty/config](.config/ghostty/config) - Ghostty 
+- [gh/config.yml](.config/gh/config.yml) - GitHub CLI
+- [lazygit/config.yml](.config/lazygit/config.yml) - lazygit
+- [nvim/init.lua](.config/nvim/init.lua) - Neovim
+- [wezterm/wezterm.lua](.config/wezterm/wezterm.lua) - WezTerm
 
-### .azure/
+### .azure
 
-- [config](.azure/config) - Azure CLI config
+- [config](.azure/config) - Azure CLI
 
 ## Script
 
