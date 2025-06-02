@@ -9,7 +9,7 @@ Dot configuration files (.zshrc, .gitconfig, etc.)
 
 ## Configs
 
-- [.digrc](.digrc) - [https://en.wikipedia.org/wiki/Dig_(command)](dig) BIND dig
+- [.digrc](.digrc) - BIND [dig](https://en.wikipedia.org/wiki/Dig_(command))
 - [.zshrc](.zshrc) - Z shell
 - [.gitconfig](.gitconfig) - Git command (options, etc.)
 - [.gitconfig.aliases](.gitconfig.aliases) - Git aliases
