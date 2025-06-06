@@ -44,7 +44,15 @@ function custom_plugin {
     fi
 }
 
-function cdp { cd $HOME/Projects/${1:-}; }
+function cdp {
+  local target="$HOME/Projects/${1:-}"
+  
+  if [[ -d "$target" ]]; then
+    cd "$target"
+  else
+    echo "Directory does not exist: $target"
+  fi
+}
 
 ## Oh My Zsh 
 #
