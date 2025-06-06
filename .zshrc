@@ -26,7 +26,7 @@ HIST_STAMPS="dd.mm.yyyy"
 ## Functions
 #
 # Convert CloudFormation parameter file to CodePipeline template style
-function cf2cp() {
+function cf2cp {
   jq '{ Parameters: [ .[] | { (.ParameterKey): .ParameterValue } ] | add }' < $@;
 }
 
@@ -34,7 +34,7 @@ function lolbanner {
   figlet -c -f ~/.local/share/fonts/figlet-fonts/3d.flf $@ | lolcat
 }
 
-function custom_plugin() {
+function custom_plugin {
     local plugin_name="$1"
     local zsh_plugins_dir="$ZSH/custom/plugins"
 
@@ -43,6 +43,8 @@ function custom_plugin() {
 	echo $plugin_name
     fi
 }
+
+function cdp { cd $HOME/Projects/${1:-}; }
 
 ## Oh My Zsh 
 #
@@ -79,7 +81,6 @@ zle_highlight=('paste:none')
 # Command aliases
 alias tf="terraform"
 alias zhist="history -i"
-alias cdp="cd ~/Projects"
 alias cdd="cd ~/Downloads"
 alias dy="dig +short @dns.toys"
 alias nv="nvim"
