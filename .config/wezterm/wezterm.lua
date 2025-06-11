@@ -16,7 +16,7 @@ local dark_scheme = "rose-pine-moon"
 
 -- Fonts
 config.font = wt.font("0xProto Nerd Font", { bold = false, italic = false })
-config.font_size = 10.0
+config.font_size = 14.0
 config.line_height = 1.1
 config.harfbuzz_features = { 'zero' }
 

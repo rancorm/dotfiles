@@ -41,19 +41,24 @@ do
     # Ignore entry
     if [ $EIGNORE -eq 1 ]; then
       echo -e "\x1B[93mIgnoring entry $EBASE\x1B[39m"
+      
       continue
     fi
 
-    # Check for ~/.config directory
+    # Check for directory
     if [ -d "$EBASE" ]; then
 	echo -e "\x1B[91m$ETARGET is a directory. Symlinking subdirectories.\x1B[39m"
 	
-	# Loop through subdirectories of ~/.config
+	# Loop through subdirectories
 	for SUBENTRY in "$ENTRY"/*
 	do
 	    SUBBASE=$(basename "$SUBENTRY")
 	    SUBTARGET="$HOME/$EBASE/$SUBBASE"
 	    SUBDOTFILE="$HOME/$DOTFILES/$EBASE/$SUBBASE"
+
+	    if [ ! -x $ETARGET ]; then
+		mkdir $ETARGET
+	    fi
 
 	    # Check for existing symlink, create and/or update symlink in home directory
 	    if [[ -h "$SUBTARGET" && ($(readlink "$SUBTARGET") == "$SUBDOTFILE") ]]; then
@@ -63,10 +68,15 @@ do
 
 		# Check answer
 		if [[ "$REPLY" =~ ^([yY]*)$ ]]; then
+		    echo -e "\x1B[93mRenaming $HOME/$EBASE to $HOME/${EBASE}.orig\x1B[39m"
+
+		    # Rename original
+		    mv "$HOME/$EBASE" "$HOME/${EBASE}.orig"
 		    symlink "$SUBDOTFILE" "$HOME/$EBASE"
 		fi
 	    else
 		echo -e "\x1B[92m$SUBTARGET does not exist. Linking to its dotfile.\x1B[39m"
+		
 		symlink "$SUBDOTFILE" "$HOME/$EBASE"
 	    fi
 	done
@@ -76,16 +86,22 @@ do
 	    echo -e "\x1B[90m$ETARGET is linked to your dotfiles.\x1B[39m"
 	elif [[ -f "$ETARGET" && $(checksum "$ETARGET" | awk '{print $2}') == $(checksum "$EBASE" | awk '{print $2}') ]]; then
 	    echo -e "\x1B[93m$ETARGET exists and was identical to your dotfile. Overriding with symlink.\x1B[39m"
+	    
 	    symlink "$EDOTFILE" "$HOME"
 	elif [[ -a "$ETARGET" ]]; then
 	    read -p "$ETARGET exists and differs from your dotfile. Override? [yN] " REPLY
 
 	    # Check answer
 	    if [[ "$REPLY" =~ ^([yY]*)$ ]]; then
+		echo -e "\x1B[93mRenaming $ETARGET to ${ETARGET}.orig\x1B[39m"
+	
+		# Rename original
+		mv $ETARGET ${ETARGET}.orig
 		symlink "$EDOTFILE" "$HOME"
 	    fi
 	else
 	    echo -e "\x1B[92m$ETARGET does not exist. Linking to its dotfile.\x1B[39m"
+	    
 	    symlink "$EDOTFILE" "$HOME"
 	fi
     fi
