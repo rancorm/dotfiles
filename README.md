@@ -22,7 +22,7 @@ Dot configuration files (.zshrc, .gitconfig, etc.)
 - [nvim/init.lua](.config/nvim/init.lua) - Neovim
 - [wezterm/wezterm.lua](.config/wezterm/wezterm.lua) - WezTerm
 
-### .azure
+### .azure/
 
 - [config](.azure/config) - Azure CLI
 
