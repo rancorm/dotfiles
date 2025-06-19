@@ -2,10 +2,10 @@
 
 auto-update = off
 
-theme = "light:github,dark:github dark"
+theme = "light:github-light-default,dark:github-dark-default"
 
-font-size = 18
-font-family = "0xProto Nerd Font"
+font-size = 19
+font-family = MesloLGS Nerd Font Mono
 
 # Mouse
 mouse-hide-while-typing = true
@@ -21,7 +21,7 @@ shell-integration-features = no-cursor
 
 # Background
 background-blur = true
-background-opacity = 0.80
+background-opacity = 0.9
 
 # macOS
 macos-titlebar-proxy-icon = hidden
@@ -34,6 +34,7 @@ window-height = 50
 
 # Quake style quick terminal
 quick-terminal-position = bottom
+quick-terminal-autohide = false
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 
 bold-is-bright = true

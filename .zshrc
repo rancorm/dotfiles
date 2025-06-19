@@ -123,6 +123,7 @@ export GLAMOUR_STYLE="tokyo-night"
 #
 # Add user directories to PATH. Local bin, Brew, and Pip
 export PATH="/usr/local/sbin:$HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
+export PATH="~/bin:$PATH"
 
 # Brew Python
 if command -v brew &> /dev/null; then
@@ -150,3 +151,9 @@ export PATH="$HOME/.local/share/nvim/mason/bin":$PATH
 if [[ -f ~/.zsh_prompt ]]; then
   . ~/.zsh_prompt
 fi
+
+# Fix for xterm-ghostty unknown terminal type
+export TERM=xterm-256color
+
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh

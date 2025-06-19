@@ -21,3 +21,4 @@
   }; f"
   pending = "log --branches --not --remotes"
   deleted = "diff --name-only --diff-filter=D"
+  ai-commit = "!copilot-commit.sh"

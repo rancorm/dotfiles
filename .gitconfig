@@ -17,6 +17,7 @@
   navigate = true
   line-numbers = true
   true-color = always
+  side-by-side = true
 
 [color]
   ui = auto
