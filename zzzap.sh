@@ -28,7 +28,11 @@ if [[ "$YN" == [Yy] ]]; then
   NEW_ORIGIN="$1"
 
   # Delete all files and directories except .git
-  $FIND . -mindepth 1 -not -path "./.git*" -exec rm -rf {} +
+  $FIND . -mindepth 1 \
+    -not -path "./.git*" \
+    -not -name "symup.sh" \
+    -not -name "zzzap.sh" \
+    -exec rm -rf {} +
 
   # Change git origin to new location
   $GIT remote set-url origin "$NEW_ORIGIN"
