@@ -27,6 +27,7 @@
 
 [status]
   short = true
+  submoduleSummary = true
 
 # Workflow and operations
 [branch]

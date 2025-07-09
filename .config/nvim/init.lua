@@ -154,6 +154,18 @@ km.set("n", "<C-j>", "<C-w>j")
 km.set("n", "<C-k>", "<C-w>k")
 km.set("n", "<C-l>", "<C-w>l")
 
+-- Ctrl+\: Open tag under cursor in a new tab
+km.set('n', '<C-\\>', function()
+  vim.cmd('tab split')
+  vim.cmd('tag ' .. vim.fn.expand('<cword>'))
+end, { silent = true })
+
+-- Alt+]: Open tag under cursor in a vertical split
+km.set('n', '<A-]>', function()
+  vim.cmd('vsp')
+  vim.cmd('tag ' .. vim.fn.expand('<cword>'))
+end, { silent = true })
+
 km.set("n", "<F6>", ":set list!<cr>")
 
 km.set("n", "<S-H>", "_")
@@ -168,6 +180,32 @@ km.set("t", "<C-l>", "<cmd>wincmd l<CR>")
 km.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
 km.set("n", "<leader>d", "diw")
+
+-- Line/last character swap 
+km.set('n', '<leader>s', function()
+  local row = vim.fn.line('.')
+  local line1 = vim.fn.getline(row)
+  local line2 = vim.fn.getline(row + 1)
+
+  if not line2 or line2 == '' then return end
+
+  -- Save original last characters
+  local last1 = line1:sub(-1)
+  local last2 = line2:sub(-1)
+
+  -- Swap lines (but keep originals for char swap)
+  vim.fn.setline(row, line2)
+  vim.fn.setline(row + 1, line1)
+
+  if last1 == last2 then return end
+
+  -- Update last characters using original values
+  local new_line1 = line2:sub(1, -2) .. last1
+  local new_line2 = line1:sub(1, -2) .. last2
+
+  vim.fn.setline(row, new_line1)
+  vim.fn.setline(row + 1, new_line2)
+end, { desc = "Swap lines and last character" })
 
 -- Visual mode key maps
 km.set("v", "J", ":m '>+1<CR>gv=gv")

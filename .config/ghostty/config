@@ -11,10 +11,10 @@ font-family = MesloLGS Nerd Font Mono
 mouse-hide-while-typing = true
 
 # Cursor
-cursor-style = block
-cursor-color = green4
+cursor-style = bar
+cursor-color = darkgreen
 cursor-style-blink = true
-cursor-opacity = 0.75
+adjust-cursor-thickness = 2
 
 # Shell Integration
 shell-integration-features = no-cursor

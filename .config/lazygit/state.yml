@@ -1,14 +1,17 @@
 lastupdatecheck: 0
 recentrepos:
+    - /Users/jonathan/Projects/resolv
+    - /Users/jonathan/Projects/castlegard
     - /Users/jonathan/dotfiles
     - /Users/jonathan/Projects/txtomatic
     - /Users/jonathan/Projects/cryptxt
 startuppopupversion: 5
-lastversion: 0.42.0
+lastversion: 0.53.0
 customcommandshistory: []
 hidecommandlog: true
 ignorewhitespaceindiffview: false
 diffcontextsize: 3
+renamesimilaritythreshold: 50
 localbranchsortorder: recency
 remotebranchsortorder: alphabetical
 gitlogorder: topo-order

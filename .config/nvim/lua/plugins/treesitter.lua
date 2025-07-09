@@ -13,7 +13,10 @@ return {
 	"yaml",
 	"javascript",
 	"c",
-	"rust"
+	"rust",
+	"go",
+	"gomod",
+	"gosum"
       },
       sync_install = false,
       auto_install = true,

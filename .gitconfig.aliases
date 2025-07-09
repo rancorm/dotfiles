@@ -22,3 +22,4 @@
   pending = "log --branches --not --remotes"
   deleted = "diff --name-only --diff-filter=D"
   ai-commit = "!copilot-commit.sh"
+  onto = "!f() { git rebase --onto \"$1^\" \"$1\"; }; f"
