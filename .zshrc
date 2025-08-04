@@ -54,6 +54,12 @@ function cdp {
   fi
 }
 
+function _bwsid() {
+  BW_SESSION=$(bw unlock --raw) && \
+  PUBKEY=$(bw get item "$1" --session $BW_SESSION | jq -r ".notes") && \
+  ssh-copy-id -i <(echo "$PUBKEY") "${2:-user@hostname}"
+}
+
 ## Oh My Zsh 
 #
 # Standard plugins: ~/.oh-my-zsh/plugins/
@@ -104,6 +110,8 @@ alias clearcreds="unset AWS_CREDENTIAL_EXPIRATION \
 alias k="kubectl"
 alias c="cargo"
 alias t="tree --dirsfirst --gitignore -t -F"
+alias bw-ssh-copy-id="_bwsid"
+
 
 ## App intergrations
 #

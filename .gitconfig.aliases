@@ -21,7 +21,7 @@
   }; f"
   pending = "log --branches --not --remotes"
   deleted = "diff --name-only --diff-filter=D"
-  shoot = "!f() { git switch "$1" || git switch -c "$1"; }; f"
+  shoot = "!f() { git switch "$1" 2>/dev/null || git switch -c "$1"; }; f"
   ai-commit = "!copilot-commit.sh"
   onto = "!f() { git rebase --onto \"$1^\" \"$1\"; }; f"
 

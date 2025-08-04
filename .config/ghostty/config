@@ -1,4 +1,4 @@
-# Jonathan's configuration file for Ghostty.
+# Jonathan's Ghostty configuration.
 
 auto-update = off
 
@@ -11,7 +11,7 @@ font-family = MesloLGS Nerd Font Mono
 mouse-hide-while-typing = true
 
 # Cursor
-cursor-style = bar
+cursor-style = block
 cursor-color = darkgreen
 cursor-style-blink = true
 adjust-cursor-thickness = 2
@@ -24,8 +24,10 @@ background-blur = true
 background-opacity = 0.9
 
 # macOS
+macos-titlebar-style = transparent
 macos-titlebar-proxy-icon = hidden
-macos-icon = retro
+#macos-icon = retro
+#macos-icon-frame = beige
 macos-auto-secure-input = true
 
 # Window
