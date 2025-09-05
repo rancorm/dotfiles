@@ -92,27 +92,6 @@ source $ZSH/oh-my-zsh.sh
 # Disable paste highlighting
 zle_highlight=('paste:none')
 
-# Command aliases
-alias tf="terraform"
-alias zhist="history -i"
-alias cdd="cd ~/Downloads"
-alias dy="dig +short @dns.toys"
-alias nv="nvim"
-alias canopy="tree -t --dirsfirst -I __pycache__"
-alias clearcreds="unset AWS_CREDENTIAL_EXPIRATION \
-  AWS_ACCESS_KEY_ID \
-  AWS_SECRET_ACCESS_KEY \
-  AWS_SESSION_TOKEN \
-  AWS_ENDPOINT_URL \
-  AWS_PROFILE \
-  AWS_VAULT \
-  && echo 'AWS credentials cleared'"
-alias k="kubectl"
-alias c="cargo"
-alias t="tree --dirsfirst --gitignore -t -F"
-alias bw-ssh-copy-id="_bwsid"
-
-
 ## App intergrations
 #
 # Bitwarden SSH agent
@@ -163,5 +142,6 @@ fi
 # Fix for xterm-ghostty unknown terminal type
 export TERM=xterm-256color
 
+source ~/.zshrc.aliases
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh

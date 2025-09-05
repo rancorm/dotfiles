@@ -26,8 +26,8 @@ background-opacity = 0.9
 # macOS
 macos-titlebar-style = transparent
 macos-titlebar-proxy-icon = hidden
-#macos-icon = retro
-#macos-icon-frame = beige
+macos-icon = retro
+macos-icon-frame = plastic
 macos-auto-secure-input = true
 
 # Window
