@@ -2,7 +2,7 @@
 
 auto-update = off
 
-theme = "light:github-light-default,dark:github-dark-default"
+theme = "light:Github Light Default,dark:Github Dark Default"
 
 font-size = 19
 font-family = MesloLGS Nerd Font Mono

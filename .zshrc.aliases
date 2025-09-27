@@ -16,3 +16,4 @@ alias k="kubectl"
 alias c="cargo"
 alias t="tree --dirsfirst --gitignore -t -F"
 alias bw-ssh-copy-id="_bwsid"
+alias venv='[[ -n $VIRTUAL_ENV_PROMPT ]] && echo $VIRTUAL_ENV_PROMPT'
