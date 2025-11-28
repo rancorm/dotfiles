@@ -24,3 +24,5 @@
   shoot = "!f() { git switch "$1" 2>/dev/null || git switch -c "$1"; }; f"
   onto = "!f() { git rebase --onto \"$1^\" \"$1\"; }; f"
   lg = "log --oneline --graph --all --decorate"
+  rom = "!git fetch origin main && git rebase origin/main"
+  co = checkout
