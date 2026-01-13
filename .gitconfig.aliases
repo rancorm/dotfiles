@@ -26,3 +26,5 @@
   lg = "log --oneline --graph --all --decorate"
   rom = "!git fetch origin main && git rebase origin/main"
   co = checkout
+  changes = "diff --stat main...HEAD"
+  parent = "!f() { git merge-base \"${1:-main}\" $(git branch --show-current); }; f"

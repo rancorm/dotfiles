@@ -1,6 +1,10 @@
 #
 # Jonathan Cormier's Git Configuration
 #
+# Notes:
+#   Aliases can be found in .gitconfig.aliases
+#
+#
 [include]
   path = ~/.gitconfig.aliases
 
@@ -60,6 +64,9 @@
 
 [init]
   defaultBranch = main
+
+[mergetool]
+  tool = nvimdiff3
 
 # Editor and tools
 [core]

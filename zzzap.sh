@@ -27,11 +27,13 @@ GIT=$(which git)
 if [[ "$YN" == [Yy] ]]; then
   NEW_ORIGIN="$1"
 
-  # Delete all files and directories except .git
+  # Delete all files and directories except .git, scripts,
+  # and files ending with .zap.
   $FIND . -mindepth 1 \
     -not -path "./.git*" \
     -not -name "symup.sh" \
     -not -name "zzzap.sh" \
+    -not -name "*.zap" \
     -exec rm -rf {} +
 
   # Change git origin to new location

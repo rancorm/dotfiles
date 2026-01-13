@@ -23,6 +23,8 @@ NT_HIDE_COUNT=1
 # You can set one of the optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="dd.mm.yyyy"
 
+set clipboard += unnamedplus
+
 ## Functions
 #
 # Convert CloudFormation parameter file to CodePipeline template style

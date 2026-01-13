@@ -41,9 +41,9 @@ opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 
 -- Indentation
-opt.tabstop = 8 -- Always 8 (see :h tabstop)
-opt.softtabstop = 2 -- What you expecting
-opt.shiftwidth = 2 -- What you expecting
+opt.tabstop = 4 -- Always 8 (see :h tabstop)
+opt.softtabstop = 4 -- What you expecting
+opt.shiftwidth = 4 -- What you expecting
 opt.smartindent = true
 opt.shiftround = true
 
