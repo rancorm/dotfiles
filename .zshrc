@@ -25,43 +25,6 @@ HIST_STAMPS="dd.mm.yyyy"
 
 set clipboard += unnamedplus
 
-## Functions
-#
-# Convert CloudFormation parameter file to CodePipeline template style
-function cf2cp {
-  jq '{ Parameters: [ .[] | { (.ParameterKey): .ParameterValue } ] | add }' < $@;
-}
-
-function lolbanner {
-  figlet -c -f ~/.local/share/fonts/figlet-fonts/3d.flf $@ | lolcat
-}
-
-function custom_plugin {
-    local plugin_name="$1"
-    local zsh_plugins_dir="$ZSH/custom/plugins"
-
-    # Check if the plugin directory exists
-    if [ -d "$zsh_plugins_dir/$plugin_name" ]; then
-	echo $plugin_name
-    fi
-}
-
-function cdp {
-  local target="$HOME/Projects/${1:-}"
-  
-  if [[ -d "$target" ]]; then
-    cd "$target"
-  else
-    echo "Directory does not exist: $target"
-  fi
-}
-
-function _bwsid() {
-  BW_SESSION=$(bw unlock --raw) && \
-  PUBKEY=$(bw get item "$1" --session $BW_SESSION | jq -r ".notes") && \
-  ssh-copy-id -i <(echo "$PUBKEY") "${2:-user@hostname}"
-}
-
 ## Oh My Zsh 
 #
 # Standard plugins: ~/.oh-my-zsh/plugins/
@@ -83,7 +46,18 @@ plugins=(
   pip
   virtualenv
   azure
+  jj
 )
+
+function custom_plugin {
+    local plugin_name="$1"
+    local zsh_plugins_dir="$ZSH/custom/plugins"
+
+    # Check if the plugin directory exists
+    if [ -d "$zsh_plugins_dir/$plugin_name" ]; then
+	  echo $plugin_name
+    fi
+}
 
 plugins+=($(custom_plugin "zsh-completions"))
 plugins+=($(custom_plugin "zsh-autosuggestions"))
@@ -97,7 +71,7 @@ zle_highlight=('paste:none')
 ## App intergrations
 #
 # Bitwarden SSH agent
-export SSH_AUTH_SOCK=${HOME}/.bitwarden-ssh-agent.sock
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 
 ## User configuration
 #
@@ -144,6 +118,7 @@ fi
 # Fix for xterm-ghostty unknown terminal type
 export TERM=xterm-256color
 
+source ~/.zshrc.funcs
 source ~/.zshrc.aliases
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh

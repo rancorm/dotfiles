@@ -3,11 +3,10 @@ return {
   lazy = false,
   priority = 1000,
   name = "rose-pine",
+  enabled = false,
   config = function()
     require("rose-pine").setup({
-      styles = {
-	transparency = true
-      }	
+      styles = { transparency = true }
     })
 
     cmd("colorscheme rose-pine")
