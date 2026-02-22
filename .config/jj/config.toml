@@ -1,0 +1,49 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[user]
+name = "Jonathan Cormier"
+email = "jonathan@cormier.co"
+
+[ui]
+editor = "nvim"
+default-command = ["log", "--reversed", "-T", "builtin_log_oneline"]
+show-cryptographic-signatures = true
+
+[signing]
+behavior = "own"
+backend = "gpg"
+sign-all = true
+key = "34CD09BD8A253BB518746C3E3C15099390069BAF"
+
+[git]
+sign-on-push = true
+
+[template-aliases]
+'format_short_cryptographic_signature(sig)' = '''
+if(sig,
+  if(sig.status() == "good", "🔒",
+    if(sig.status() == "unknown", "❓",
+      if(sig.status() == "bad", "💀",
+        sig.status()
+      )
+    )
+  ),
+  "🚫",
+)
+'''
+
+[templates]
+log = '''
+if(root,
+  format_root_commit(self),
+  label(if(current_working_copy, "working_copy"),
+    concat(
+      separate(" ",
+        format_short_change_id_with_hidden_and_divergent_info(self),
+        if(empty, label("empty", "∅"))
+      ),
+      "\n",
+    )
+  )
+)
+'''

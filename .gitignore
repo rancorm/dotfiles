@@ -29,3 +29,4 @@ Temporary Items
 ### Sensitive files ###
 # gh CLI
 .config/gh/hosts.yml
+.config/jj/repos
