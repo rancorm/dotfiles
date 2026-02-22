@@ -1,25 +1,26 @@
 #!/bin/bash
 #
-# symup.sh [Dotfile symlink manager] 
+# symup.sh [Dotfile symlink manager]
 #
-#
+set -euo pipefail
+
 # List of entries to ignore
 IGNORE=".DS_Store .git .gitignore"
 
-# Name of target dotfiles directory
-DOTFILES="dotfiles"
+# Paths of commands and script
+BASEDIR=$(cd "$(dirname "$0")" && pwd)
 
-# Paths of commands and script 
-BASEDIR=$(dirname $0)
-LN=$(which ln)
-SHASUM=$(which shasum)
+# Absolute path used as symlink target
+DOTFILES="$BASEDIR"
+LN=$(command -v ln)
+SHASUM=$(command -v shasum || command -v sha512sum || { echo "No shasum command found" >&2; exit 1; })
 
 function symlink {
-  $LN -nsf $1 $2
+  "$LN" -nsf "$1" "$2"
 }
 
 function checksum {
-  $SHASUM -a 512 $1
+  "$SHASUM" -a 512 "$1"
 }
 
 function checksums_match {
@@ -37,14 +38,14 @@ function symlink_matches {
 # Loop through dot entries
 for ENTRY in "$BASEDIR"/.[^.]*
 do
-    EBASE=$(basename $ENTRY)
+    EBASE=$(basename "$ENTRY")
     ETARGET="$HOME/$EBASE"
     EIGNORE=0
     EDOTFILE="$DOTFILES/$EBASE"
 
     # Ignore specific file or directory names
     for IENTRY in $IGNORE
-    do 
+    do
       if [ "$IENTRY" = "$EBASE" ]; then
         EIGNORE=1
       fi
@@ -53,24 +54,24 @@ do
     # Ignore entry
     if [ $EIGNORE -eq 1 ]; then
       echo -e "\x1B[93mIgnoring entry $EBASE\x1B[39m"
-      
+
       continue
     fi
 
     # Check for directory
-    if [ -d "$EBASE" ]; then
+    if [ -d "$ENTRY" ]; then
 	echo -e "\x1B[91m$ETARGET is a directory. Symlinking subdirectories.\x1B[39m"
-	
+
 	# Loop through subdirectories
 	for SUBENTRY in "$ENTRY"/*
 	do
 	    SUBBASE=$(basename "$SUBENTRY")
 	    SUBTARGET="$ETARGET/$SUBBASE"
-	    SUBDOTFILE="$HOME/$EDOTFILE/$SUBBASE"
+	    SUBDOTFILE="$EDOTFILE/$SUBBASE"
 
 	    # Make high-level directory if it doesn't exist
-	    if [ ! -d $ETARGET ]; then
-		mkdir $ETARGET
+	    if [ ! -d "$ETARGET" ]; then
+		mkdir "$ETARGET"
 	    fi
 
 	    # Check for existing symlink, create and/or update symlink in home directory
@@ -80,17 +81,17 @@ do
 		read -p "$SUBTARGET exists and differs from your dotfile. Override? [yN] " REPLY
 
 		# Check answer
-		if [[ "$REPLY" =~ ^([yY]*)$ ]]; then
-		    echo -e "\x1B[93mRenaming $ETARGET to ${ETARGET}.orig\x1B[39m"
+		if [[ "$REPLY" =~ ^[yY]$ ]]; then
+		    echo -e "\x1B[93mRenaming $SUBTARGET to ${SUBTARGET}.orig\x1B[39m"
 
 		    # Rename original
-		    mv "$ETARGET" "${ETARGET}.orig"
-		    symlink "$SUBDOTFILE" "$ETARGET"
+		    mv "$SUBTARGET" "${SUBTARGET}.orig"
+		    symlink "$SUBDOTFILE" "$SUBTARGET"
 		fi
 	    else
 		echo -e "\x1B[92m$SUBTARGET does not exist. Linking to its dotfile.\x1B[39m"
-		
-		symlink "$SUBDOTFILE" "$ETARGET"
+
+		symlink "$SUBDOTFILE" "$SUBTARGET"
 	    fi
 	done
     else
@@ -99,22 +100,22 @@ do
 	    echo -e "\x1B[90m$ETARGET is linked to your dotfiles.\x1B[39m"
 	elif [ -f "$ETARGET" ] && checksums_match "$ETARGET" "$ENTRY"; then
 	    echo -e "\x1B[93m$ETARGET exists and was identical to your dotfile. Overriding with symlink.\x1B[39m"
-	    
+
 	    symlink "$EDOTFILE" "$HOME"
 	elif [[ -a "$ETARGET" ]]; then
 	    read -p "$ETARGET exists and differs from your dotfile. Override? [yN] " REPLY
 
 	    # Check answer
-	    if [[ "$REPLY" =~ ^([yY]*)$ ]]; then
+	    if [[ "$REPLY" =~ ^[yY]$ ]]; then
 		echo -e "\x1B[93mRenaming $ETARGET to ${ETARGET}.orig\x1B[39m"
-	
+
 		# Rename original
-		mv $ETARGET ${ETARGET}.orig
+		mv "$ETARGET" "${ETARGET}.orig"
 		symlink "$EDOTFILE" "$HOME"
 	    fi
 	else
 	    echo -e "\x1B[92m$ETARGET does not exist. Linking to its dotfile.\x1B[39m"
-	    
+
 	    symlink "$EDOTFILE" "$HOME"
 	fi
     fi
