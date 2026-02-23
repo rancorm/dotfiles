@@ -1,0 +1,30 @@
+# Convert CloudFormation parameter file to CodePipeline template style
+function cf2cp {
+  jq '{ Parameters: [ .[] | { (.ParameterKey): .ParameterValue } ] | add }' < $@;
+}
+
+function lolbanner {
+  figlet -c -f ~/.local/share/fonts/figlet-fonts/3d.flf $@ | lolcat
+}
+
+function cdp {
+  local target="$HOME/Projects/${1:-}"
+  
+  if [[ -d "$target" ]]; then
+    cd "$target"
+  else
+    echo "Directory does not exist: $target"
+  fi
+}
+
+function _cdp() {
+  local projects="$HOME/Projects"
+  _files -W "$projects" -/
+}
+compdef _cdp cdp
+
+function _bwsid() {
+  BW_SESSION=$(bw unlock --raw) && \
+  PUBKEY=$(bw get item "$1" --session $BW_SESSION | jq -r ".notes") && \
+  ssh-copy-id -i <(echo "$PUBKEY") "${2:-user@hostname}"
+}
