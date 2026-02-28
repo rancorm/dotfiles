@@ -14,7 +14,7 @@
 export ZSH=$HOME"/.oh-my-zsh"
 
 # Theme
-ZSH_THEME="nothing"
+ZSH_THEME="funky"
 
 NT_HIDE_EXIT_CODE=1
 NT_HIDE_COUNT=1
@@ -120,5 +120,5 @@ export TERM=xterm-256color
 
 source ~/.zshrc.funcs
 source ~/.zshrc.aliases
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
