@@ -18,6 +18,12 @@ key = "34CD09BD8A253BB518746C3E3C15099390069BAF"
 [git]
 sign-on-push = true
 
+[aliases]
+ai-commit = ["util", "exec", "--", "bash", "-c", """
+  rev="${1:-@}"
+  jj diff -r "$rev" | claude -p 'Write a concise commit message for these changes in the conventional commits format' | jj describe -r "$rev" --stdin --editor
+""", "--"]
+
 [template-aliases]
 'format_short_cryptographic_signature(sig)' = '''
 if(sig,
