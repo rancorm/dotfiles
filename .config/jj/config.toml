@@ -6,10 +6,11 @@ email = "jonathan@cormier.co"
 
 [ui]
 editor = "nvim"
-default-command = ["log", "--reversed", "-T", "builtin_log_oneline"]
+default-command = ["log", "--reversed"]
 show-cryptographic-signatures = true
 pager = "delta"
 merge-editor = "nvim3"
+diff-editor = ":builtin"
 
 [merge-tools.nvim3]
 program = "nvim"
@@ -53,17 +54,4 @@ if(sig,
 '''
 
 [templates]
-log = '''
-if(root,
-  format_root_commit(self),
-  label(if(current_working_copy, "working_copy"),
-    concat(
-      separate(" ",
-        format_short_change_id_with_change_offset(self),
-        if(empty, label("empty", "∅"))
-      ),
-      "\n",
-    )
-  )
-)
-'''
+log = "builtin_log_oneline"
