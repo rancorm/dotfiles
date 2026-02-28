@@ -14,7 +14,7 @@
 export ZSH=$HOME"/.oh-my-zsh"
 
 # Theme
-ZSH_THEME="funky"
+ZSH_THEME="clean"
 
 NT_HIDE_EXIT_CODE=1
 NT_HIDE_COUNT=1
