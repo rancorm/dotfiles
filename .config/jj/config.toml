@@ -8,6 +8,12 @@ email = "jonathan@cormier.co"
 editor = "nvim"
 default-command = ["log", "--reversed", "-T", "builtin_log_oneline"]
 show-cryptographic-signatures = true
+pager = "delta"
+merge-editor = "nvim3"
+
+[merge-tools.nvim3]
+program = "nvim"
+merge-args = ["-d", "$left", "$base", "$right", "$output"]
 
 [signing]
 behavior = "own"
@@ -23,6 +29,14 @@ ai-commit = ["util", "exec", "--", "bash", "-c", """
   rev="${1:-@}"
   jj diff -r "$rev" | claude -p 'Write a concise commit message for these changes in the conventional commits format' | jj describe -r "$rev" --stdin --editor
 """, "--"]
+track-remote = ["util", "exec", "--", "bash", "-c", """
+  pattern="${1:-.}"
+  jj bookmark list --all-remotes | grep -E "$pattern" | grep '@' | awk '{print $1}' | xargs -I{} jj bookmark track {}
+""", "--"]
+
+[revset-aliases]
+"wip" = "description(exact:'') & mine()"
+"stacked" = "ancestors(@, 5) ~ immutable_heads()"
 
 [template-aliases]
 'format_short_cryptographic_signature(sig)' = '''
@@ -45,7 +59,7 @@ if(root,
   label(if(current_working_copy, "working_copy"),
     concat(
       separate(" ",
-        format_short_change_id_with_hidden_and_divergent_info(self),
+        format_short_change_id_with_change_offset(self),
         if(empty, label("empty", "∅"))
       ),
       "\n",
