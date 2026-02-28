@@ -24,7 +24,16 @@ function _cdp() {
 compdef _cdp cdp
 
 function _bwsid() {
-  BW_SESSION=$(bw unlock --raw) && \
-  PUBKEY=$(bw get item "$1" --session $BW_SESSION | jq -r ".notes") && \
-  ssh-copy-id -i <(echo "$PUBKEY") "${2:-user@hostname}"
+  local BW_SESSION ITEM_ID PUBKEY TMPKEY
+  export BW_SESSION=$(bw unlock --raw) || { echo "Unlock failed"; return 1; }
+  ITEM_ID=$(bw list items --search "$1" | jq -r '.[] | select(.sshKey) | .id' | head -n1)
+  [[ -z "$ITEM_ID" ]] && { echo "No SSH key item found for '$1'"; return 1; }
+  PUBKEY=$(bw get item "$ITEM_ID" | jq -r '.sshKey.publicKey') || { echo "Failed to retrieve key"; return 1; }
+  TMPKEY=$(mktemp /tmp/bwsid-XXXXXX)
+  mv "$TMPKEY" "$TMPKEY.pub"
+  TMPKEY="$TMPKEY.pub"
+  echo "$PUBKEY" > "$TMPKEY"
+  ssh-copy-id -f -o "IdentitiesOnly=yes" -o "PreferredAuthentications=password" -i "$TMPKEY" "${2:?Missing target host}"
+  rm -f "$TMPKEY"
+  unset BW_SESSION 
 }
