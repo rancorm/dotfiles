@@ -11,7 +11,17 @@
 [user]
   name = Jonathan Cormier
   email = jonathan@cormier.co
-  signingkey = 34CD09BD8A253BB518746C3E3C15099390069BAF 
+  signingkey = ~/.ssh/signing_key.pub
+
+# Signing
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+    allowedSignersFile = ~/.config/git/allowed_signers
+
+[tag]
+  gpgsign = true
 
 # UI and display
 [column]
