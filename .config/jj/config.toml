@@ -36,6 +36,14 @@ sq = ["squash"]
 bk = ["bookmark", "list"]
 push = ["git", "push"]
 fetch = ["git", "fetch"]
+wip-age = [
+	"log",
+	"--no-graph",
+	"--reversed",
+	"-r",
+	"mutable() & ~empty() & mine()",
+	"-T",
+	"concat(change_id.shortest(4), \" \", description.first_line(), \" (\", committer.timestamp().ago(), \")\\n\")"]
 el = ["evolog"]
 booklog = ["bl"]
 bl = ["util", "exec", "--", "bash", "-c", """
