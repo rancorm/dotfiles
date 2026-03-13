@@ -5,7 +5,7 @@
 set -euo pipefail
 
 # List of entries to ignore
-IGNORE=".DS_Store .git .gitignore"
+IGNORE=".DS_Store .git .gitignore .jj"
 
 # Paths of commands and script
 BASEDIR=$(cd "$(dirname "$0")" && pwd)

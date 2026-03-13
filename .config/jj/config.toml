@@ -36,6 +36,7 @@ sq = ["squash"]
 bk = ["bookmark", "list"]
 push = ["git", "push"]
 fetch = ["git", "fetch"]
+clone = ["git", "clone"]
 wip-age = [
 	"log",
 	"--no-graph",
