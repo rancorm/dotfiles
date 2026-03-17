@@ -26,6 +26,7 @@ key = "34CD09BD8A253BB518746C3E3C15099390069BAF"
 sign-on-push = true
 
 [aliases]
+forget = ["abandon"]
 l = ["log"]
 n = ["new"]
 st = ["status"]
