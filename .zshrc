@@ -120,5 +120,7 @@ export TERM=xterm-256color
 
 source ~/.zshrc.funcs
 source ~/.zshrc.aliases
+# Source this ignore file that isn't in repository, use for API keys, etc.
+source ~/.zshrc.ignore
 [[ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [[ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh

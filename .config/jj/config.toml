@@ -60,6 +60,17 @@ track-remote = ["util", "exec", "--", "bash", "-c", """
   pattern="${1:-.}"
   jj bookmark list --all-remotes | grep -E "$pattern" | grep '@' | awk '{print $1}' | xargs -I{} jj bookmark track {}
 """, "--"]
+tag-at = ["util", "exec", "--", "bash", "-c", """
+  if [ $# -lt 2 ]; then
+    echo "Usage: jj tag-at <rev> <tagname> [git-tag-args...]" >&2
+    exit 1
+  fi
+  rev="$1"
+  tagname="$2"
+  shift 2
+  sha=$(jj log --no-graph -r "$rev" -T 'commit_id' --limit 1) || exit 1
+  git tag "$@" "$tagname" "$sha"
+""", "--"]
 
 [revset-aliases]
 "wip" = "description(exact:'') & mine()"

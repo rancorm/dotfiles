@@ -30,3 +30,6 @@ Temporary Items
 # gh CLI
 .config/gh/hosts.yml
 .config/jj/repos
+
+# Any thing that ends with .ignore
+*.ignore
