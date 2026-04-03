@@ -6,11 +6,12 @@ email = "jonathan@cormier.co"
 
 [ui]
 editor = "nvim"
-default-command = ["log", "--reversed"]
+default-command = ["status"]
 show-cryptographic-signatures = true
 pager = "delta"
 merge-editor = "nvim3"
 diff-editor = ":builtin"
+#log-synthetic-elided-nodes = false
 
 [merge-tools.nvim3]
 program = "nvim"
@@ -26,6 +27,8 @@ key = "34CD09BD8A253BB518746C3E3C15099390069BAF"
 sign-on-push = true
 
 [aliases]
+bump = ["bookmark", "move", "--to", "latest(::@ ~ empty())"]
+bump-fwd = ["bookmark", "move", "--to", "last(@:: ~ empty())"]
 forget = ["abandon"]
 l = ["log"]
 n = ["new"]
